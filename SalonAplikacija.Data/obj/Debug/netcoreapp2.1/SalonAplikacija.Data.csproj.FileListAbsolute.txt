@@ -1,0 +1,9 @@
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\bin\Debug\netcoreapp2.1\SalonAplikacija.Data.deps.json
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\bin\Debug\netcoreapp2.1\SalonAplikacija.Data.dll
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.csprojAssemblyReference.cache
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.csproj.CoreCompileInputs.cache
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.AssemblyInfoInputs.cache
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.AssemblyInfo.cs
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\bin\Debug\netcoreapp2.1\SalonAplikacija.Data.pdb
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.dll
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Data\obj\Debug\netcoreapp2.1\SalonAplikacija.Data.pdb
