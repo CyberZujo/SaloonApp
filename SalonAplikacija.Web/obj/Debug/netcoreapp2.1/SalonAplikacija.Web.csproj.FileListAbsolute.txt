@@ -15,7 +15,6 @@ C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcore
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\SalonAplikacija.Web.TagHelpers.input.cache
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\SalonAplikacija.Web.TagHelpers.output.cache
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\SalonAplikacija.Web.RazorCoreGenerate.cache
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewStart.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
@@ -23,7 +22,6 @@ C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcore
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LoginPartial.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
@@ -39,13 +37,9 @@ C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcore
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\SaloonOwner\_ViewImports.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\_Layout.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\Home\Index.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\Admin\Index.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Login.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Register.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\_ViewImports.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.g.cshtml.cs
-C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewImports.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\SaloonOwner\Views\_Layout.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\SaloonOwner\Views\Home\Index.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\_ViewStart.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\SaloonOwner\Views\_ViewStart.g.cshtml.cs
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs

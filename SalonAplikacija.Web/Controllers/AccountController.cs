@@ -7,18 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SalonAplikacija.Data.Models;
 using SalonAplikacija.Web.ViewModels;
 
 namespace SalonAplikacija.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<AccountController> _logger;
 
-        public AccountController(SignInManager<IdentityUser> signInManager,
-                               UserManager<IdentityUser> userManager,
+        public AccountController(SignInManager<ApplicationUser> signInManager,
+                               UserManager<ApplicationUser> userManager,
                                ILogger<AccountController> logger)
         {
             _signInManager = signInManager;
@@ -99,7 +100,7 @@ namespace SalonAplikacija.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -110,6 +111,10 @@ namespace SalonAplikacija.Web.Controllers
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    await _userManager.AddToRoleAsync(user, "SaloonOwner");
+
+
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }

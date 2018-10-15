@@ -21,6 +21,8 @@ html {
 
 body {
   background-color: #F3F5F8;
+  background-image:url("/images/backgroundLogin1.jpg");
+  background-repeat:no-repeat;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 15px;
   color: #676a6d; }
@@ -1019,7 +1021,7 @@ ul.activity-list > li {
     width: 58%;
     height: 100%;
     position: relative;
-    background-image: url("../../assets/img/login-bg.jpg");
+    background-image: url("/images/salon.jpg");
     background-repeat: no-repeat;
     background-size: cover; }
     .auth-box .right:before {

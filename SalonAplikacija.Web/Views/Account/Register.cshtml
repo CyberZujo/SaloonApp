@@ -1,0 +1,36 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="contact-block" id="contactBlock">
+
+    <form method="post" action="~/Account/Register">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="text" style="border-radius:20px;" class="form-control" id="name" name="Email" placeholder="Your email" required data-error="Please enter your name">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="password" style="border-radius:20px;" placeholder="Your password" id="email" class="form-control" name="Password" required data-error="Please enter your email">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="password" style="border-radius:20px;" placeholder="Confirm password" id="email" class="form-control" name="ConfirmPassword" required data-error="Please enter your email">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="submit-button text-center">
+                    <button class="btn btn-common" id="submit" type="submit">Confirm</button>
+                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

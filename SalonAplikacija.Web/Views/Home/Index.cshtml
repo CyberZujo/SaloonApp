@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#contactBlock">Sign up</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="/Account/Login">Sign in</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -622,27 +625,10 @@
     <div class="contact-form">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-sm-6 col-xs-12">
-                    <h3>Sign in</h3>
-                    <form id="contactForm">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name"
-                                           style="border-radius:20px;">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input type="text" style="border-radius:20px;" placeholder="Your Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8 offset-3 col-sm-6 col-xs-12">
+                    <h3>Sign up</h3>
+                     <partial name="../Account/Register" />
                 </div>
             </div>
         </div>

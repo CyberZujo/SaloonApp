@@ -9,14 +9,13 @@ using System.Text;
 
 namespace SalonAplikacija.Data
 {
-    public class Context : IdentityDbContext
+    public class Context : IdentityDbContext<ApplicationUser>
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
         public DbSet<Country> Countries { get; set; }
@@ -29,7 +28,7 @@ namespace SalonAplikacija.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUsers");
+            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
