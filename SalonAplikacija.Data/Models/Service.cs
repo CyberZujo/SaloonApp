@@ -26,6 +26,6 @@ namespace SalonAplikacija.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
 
-        public Saloon Saloon { get; set; }
+        public Salon Saloon { get; set; }
     }
 }

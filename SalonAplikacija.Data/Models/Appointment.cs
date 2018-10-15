@@ -42,7 +42,7 @@ namespace SalonAplikacija.Data.Models
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public Saloon Saloon { get; set; }
+        public Salon Saloon { get; set; }
 
         public Client Client { get; set; }
 

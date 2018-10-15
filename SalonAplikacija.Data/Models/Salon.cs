@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SalonAplikacija.Data.Models
 {
-    public class Saloon
+    public class Salon
     {
         [Key]
         public int SaloonId { get; set; }
