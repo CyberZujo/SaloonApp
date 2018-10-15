@@ -23,8 +23,13 @@ using SalonAplikacija.Web.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\Areas\Admin\_ViewImports.cshtml"
+using SalonAplikacija.Data.Models;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b27966390cbb3e9c75227d334326a695314e5a21", @"/Areas/Admin/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ab8b39cf823407af27f7009fa17f75b3fca107ba", @"/Areas/Admin/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"377e3d813e70d6e9f1265ca491d439b77a193814", @"/Areas/Admin/_ViewImports.cshtml")]
     public class Areas_Admin_Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998
