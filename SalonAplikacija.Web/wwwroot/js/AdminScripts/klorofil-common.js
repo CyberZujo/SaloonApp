@@ -56,7 +56,9 @@ $(document).ready(function() {
 		} else {
 			$(this).removeClass('active');
 		}
-	});
+    });
+
+
 
 	if( $('.sidebar-scroll').length > 0 ) {
 		$('.sidebar-scroll').slimScroll({

@@ -38,17 +38,45 @@ namespace SalonAplikacija.Web.Controllers
         [HttpGet]
         public async Task<IActionResult>LockScreen(string returnUrl=null)
         {
-
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            await _signInManager.SignOutAsync();
-            return View();
+            if(user==null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            UnlockScreenViewModel model = new UnlockScreenViewModel
+            {
+                Email=user.Email
+            };
+
+            if( _signInManager.SignOutAsync().IsCompletedSuccessfully)
+            {
+                return View(model);
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]
-        public async Task<IActionResult> UnlockScreen()
+        public async Task<IActionResult> UnlockScreen(UnlockScreenViewModel model)
         {
             
+           if(ModelState.IsValid)
+            {
+                var result =await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
+                if(result.Succeeded)
+                {
+                    _logger.LogInformation("Screen unlocked");
+                    return LocalRedirect("~/SaloonOwner");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View();
+                }
+            }
+
             return View();
         }
       
