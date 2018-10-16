@@ -35,7 +35,23 @@ namespace SalonAplikacija.Web.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult>LockScreen(string returnUrl=null)
+        {
 
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            await _signInManager.SignOutAsync();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnlockScreen()
+        {
+            
+            return View();
+        }
+      
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -72,7 +88,8 @@ namespace SalonAplikacija.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Index", "Home", new { area = "SaloonOwner" });
+                    return LocalRedirect("~/SaloonOwner");
+                    //return RedirectToAction("Index", "Home", new { area = "SaloonOwner" });
                 }
                 else
                 {
@@ -116,7 +133,7 @@ namespace SalonAplikacija.Web.Controllers
 
 
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Login");
                 }
                 AddErrors(result);
             }
@@ -124,15 +141,21 @@ namespace SalonAplikacija.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Logout(string url="")
+        //{
+        //    await _signInManager.SignOutAsync();
+        //    _logger.LogInformation("User logged out.");
+        //    return RedirectToAction(nameof(HomeController.Index), "Home");
+        //}
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

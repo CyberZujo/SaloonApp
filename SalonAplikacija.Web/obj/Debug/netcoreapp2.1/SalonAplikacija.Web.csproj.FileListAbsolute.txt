@@ -44,3 +44,4 @@ C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcore
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\Countries\Index.g.cshtml.cs
+C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\obj\Debug\netcoreapp2.1\Razor\Views\Account\LockScreen.g.cshtml.cs

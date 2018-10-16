@@ -298,7 +298,7 @@ iframe {
   font-family: Montserrat-Regular;
   font-size: 18px;
   color: #999999;
-  line-height: 1.2;
+  /*ine-height: 1.2;*/
 
   display: block;
   position: absolute;
@@ -306,12 +306,12 @@ iframe {
   width: 100%;
   padding-left: 24px;
   left: 0;
-  top: 30px;
+  /*top: 30px;*/
 
-  -webkit-transition: all 0.4s;
+  /*-webkit-transition: all 0.4s;*/
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
-  transition: all 0.4s;
+  /*transition: all 0.4s;*/
 }
 
 .input100 {

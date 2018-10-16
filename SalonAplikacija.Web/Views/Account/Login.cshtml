@@ -3,8 +3,10 @@
     Layout = null;
 }
 
+<!DOCTYPE html>
+<html>
 <head>
-    
+    <title></title>
     <link href="~/css/LoginStyles/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/LoginStyles/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/LoginStyles/icon-font.min.css" rel="stylesheet" />
@@ -83,7 +85,7 @@
                             </label>
                         </div>
 
-                      
+
                     </div>
 
 
@@ -100,32 +102,36 @@
             </div>
         </div>
     </div>
+
+    <environment include="Development">
+        <script src="~/js/LoginScripts/jquery-3.2.1.min.js"></script>
+        <script src="~/js/LoginScripts/animsition.min.js"></script>
+        <script src="~/js/LoginScripts/popper.js"></script>
+        <script src="~/js/LoginScripts/bootstrap.min.js"></script>
+        <script src="~/js/LoginScripts/select2.min.js"></script>
+        <script src="~/js/LoginScripts/moment.min.js"></script>
+        <script src="~/js/LoginScripts/daterangepicker.js"></script>
+        <script src="~/js/LoginScripts/countdowntime.js"></script>
+
+
+        <script>
+            $(function () {
+
+                $(".login100-more").hide();
+                $(".login100-form").hide();
+
+                $(".login100-more").fadeIn(1500);
+                $(".login100-form").fadeIn(1500);
+
+                var txtEmail = $(".input100");
+                console.log(txtEmail);
+
+
+            });
+        </script>
+    </environment>
+
+
 </body>
+</html>
 
-<environment include="Development">
-    <script src="~/js/LoginScripts/jquery-3.2.1.min.js"></script>
-    <script src="~/js/LoginScripts/animsition.min.js"></script>
-    <script src="~/js/LoginScripts/popper.js"></script>
-    <script src="~/js/LoginScripts/bootstrap.min.js"></script>
-    <script src="~/js/LoginScripts/select2.min.js"></script>
-    <script src="~/js/LoginScripts/moment.min.js"></script>
-    <script src="~/js/LoginScripts/daterangepicker.js"></script>
-    <script src="~/js/LoginScripts/countdowntime.js"></script>
-
-
-    <script>
-        $(function () {
-
-            $(".login100-more").hide();
-            $(".login100-form").hide();
-
-            $(".login100-more").fadeIn(1500);
-            $(".login100-form").fadeIn(1500);
-
-          
-
-        });
-    </script>
-</environment>
-
-  
