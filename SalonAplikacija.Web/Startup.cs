@@ -44,7 +44,7 @@ namespace SalonAplikacija.Web
                 options.Cookie.Name = "SALOON_COOKIE";
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(50);
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
