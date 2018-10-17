@@ -21,6 +21,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            //test
             var countries = _context.Countries.Any() ? _context.Countries.ToList() : null;
 
             if(countries==null)
