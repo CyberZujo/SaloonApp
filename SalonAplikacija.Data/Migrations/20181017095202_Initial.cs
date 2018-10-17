@@ -307,7 +307,6 @@ namespace SalonAplikacija.Data.Migrations
                     AppointmentStatusId = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
-                    Price = table.Column<double>(nullable: false),
                     Remark = table.Column<string>(maxLength: 200, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -363,6 +362,34 @@ namespace SalonAplikacija.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AppointmentsServices",
+                columns: table => new
+                {
+                    AppointmentServiceId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppointmentId = table.Column<int>(nullable: false),
+                    ServiceId = table.Column<int>(nullable: false),
+                    Total = table.Column<double>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentsServices", x => x.AppointmentServiceId);
+                    table.ForeignKey(
+                        name: "FK_AppointmentsServices_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppointmentsServices_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_ApplicationUserId",
                 table: "Appointments",
@@ -382,6 +409,16 @@ namespace SalonAplikacija.Data.Migrations
                 name: "IX_Appointments_SaloonId",
                 table: "Appointments",
                 column: "SaloonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentsServices_AppointmentId",
+                table: "AppointmentsServices",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentsServices_ServiceId",
+                table: "AppointmentsServices",
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -461,7 +498,7 @@ namespace SalonAplikacija.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "AppointmentsServices");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -479,19 +516,22 @@ namespace SalonAplikacija.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Appointments");
+
+            migrationBuilder.DropTable(
                 name: "Services");
-
-            migrationBuilder.DropTable(
-                name: "AppointmentStatuses");
-
-            migrationBuilder.DropTable(
-                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppointmentStatuses");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Salons");

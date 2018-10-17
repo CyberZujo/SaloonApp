@@ -18,6 +18,7 @@ namespace SalonAplikacija.Data
 
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
+        public DbSet<AppointmentService> AppointmentsServices { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Client> Clients { get; set; }

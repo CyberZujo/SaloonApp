@@ -23,8 +23,13 @@ using SalonAplikacija.Web.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\Hara\source\repos\SalonAplikacija\SalonAplikacija.Web\Views\_ViewImports.cshtml"
+using SalonAplikacija.Web.ViewModels;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5df8df2b7a29f434eae305656cd13cc5fe485737", @"/Views/Account/Register.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ab8b39cf823407af27f7009fa17f75b3fca107ba", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"de8f1e0e4650474dfcb5226c497dd6bc8ee529fe", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_Register : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -60,7 +65,7 @@ using SalonAplikacija.Web.Models;
             WriteLiteral("\r\n\r\n<div class=\"contact-block\" id=\"contactBlock\">\r\n\r\n    ");
             EndContext();
             BeginContext(181, 1552, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bcf065094ef444ff85f1bf7d7cfb3d4a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1855b282c9394b828cb1c3d9c78889f1", async() => {
                 BeginContext(229, 1497, true);
                 WriteLiteral(@"
         <div class=""row"">

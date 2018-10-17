@@ -30,15 +30,11 @@ namespace SalonAplikacija.Data.Models
         [DataType(DataType.DateTime), Required]
         public DateTime EndTime { get; set; }
 
-        [Range(0, double.MaxValue)]
-        public double Price { get; set; }
-
         [StringLength(200)]
         public string Remark { get; set; }
 
         [Required]
         public bool IsDeleted { get; set; }
-
 
         public ApplicationUser ApplicationUser { get; set; }
 

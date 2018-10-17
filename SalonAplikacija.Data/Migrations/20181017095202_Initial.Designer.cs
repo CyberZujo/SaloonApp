@@ -10,7 +10,7 @@ using SalonAplikacija.Data;
 namespace SalonAplikacija.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20181016111116_Initial")]
+    [Migration("20181017095202_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -201,8 +201,6 @@ namespace SalonAplikacija.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<double>("Price");
-
                     b.Property<string>("Remark")
                         .HasMaxLength(200);
 
@@ -221,6 +219,29 @@ namespace SalonAplikacija.Data.Migrations
                     b.HasIndex("SaloonId");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("SalonAplikacija.Data.Models.AppointmentService", b =>
+                {
+                    b.Property<int>("AppointmentServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppointmentId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("ServiceId");
+
+                    b.Property<double>("Total");
+
+                    b.HasKey("AppointmentServiceId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("AppointmentsServices");
                 });
 
             modelBuilder.Entity("SalonAplikacija.Data.Models.AppointmentStatus", b =>
@@ -491,6 +512,19 @@ namespace SalonAplikacija.Data.Migrations
                     b.HasOne("SalonAplikacija.Data.Models.Salon", "Saloon")
                         .WithMany()
                         .HasForeignKey("SaloonId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("SalonAplikacija.Data.Models.AppointmentService", b =>
+                {
+                    b.HasOne("SalonAplikacija.Data.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SalonAplikacija.Data.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

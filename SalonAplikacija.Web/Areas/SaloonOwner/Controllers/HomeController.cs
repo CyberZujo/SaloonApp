@@ -13,10 +13,14 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
     public class HomeController : Controller
     {
         private readonly Context _context;
+
+
         public HomeController(Context context)
         {
             _context = context;
         }
+
+
         public IActionResult Index()
         {
             var clients = _context.Clients.ToList();
