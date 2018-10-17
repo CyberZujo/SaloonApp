@@ -25,6 +25,7 @@ namespace SalonAplikacija.Data
         public DbSet<ClientType> ClientType { get; set; }
         public DbSet<Salon> Salons { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<SalonService> SalonsServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

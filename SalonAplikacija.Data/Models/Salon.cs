@@ -11,6 +11,10 @@ namespace SalonAplikacija.Data.Models
         [Key]
         public int SaloonId { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(ApplicationUser))]
+        public string ApplicationUserId { get; set; }
+
         [ForeignKey(nameof(City)), Range(1, int.MaxValue), Required]
         public int CityId { get; set; }
 
@@ -35,15 +39,16 @@ namespace SalonAplikacija.Data.Models
         [StringLength(50)]
         public string Website { get; set; }
 
-        [DataType(DataType.DateTime), Required]
-        public DateTime OpeningTime { get; set; }
+        [StringLength(50), Required]
+        public string OpeningTime { get; set; }
 
-        [DataType(DataType.DateTime), Required]
-        public DateTime ClosingTime { get; set; }
+        [StringLength(50), Required]
+        public string ClosingTime { get; set; }
 
         [Required]
         public bool IsDeleted { get; set; }
 
+        public ApplicationUser ApplicationUser { get; set; }
         public Country Country { get; set; }
         public City City { get; set; }
     }

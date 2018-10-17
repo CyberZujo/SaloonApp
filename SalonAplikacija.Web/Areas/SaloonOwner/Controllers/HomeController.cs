@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SalonAplikacija.Data;
+using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Home;
 
 namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 {
@@ -23,7 +24,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 
         public IActionResult Index()
         {
-            var clients = _context.Clients.ToList();
+            HomeInfoVM model = new HomeInfoVM(_context);
 
             return View();
         }

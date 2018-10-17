@@ -383,9 +383,14 @@ namespace SalonAplikacija.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(150);
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
+
                     b.Property<int>("CityId");
 
-                    b.Property<DateTime>("ClosingTime");
+                    b.Property<string>("ClosingTime")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int>("CountryId");
 
@@ -402,7 +407,9 @@ namespace SalonAplikacija.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<DateTime>("OpeningTime");
+                    b.Property<string>("OpeningTime")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -413,11 +420,34 @@ namespace SalonAplikacija.Data.Migrations
 
                     b.HasKey("SaloonId");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("CityId");
 
                     b.HasIndex("CountryId");
 
                     b.ToTable("Salons");
+                });
+
+            modelBuilder.Entity("SalonAplikacija.Data.Models.SalonService", b =>
+                {
+                    b.Property<int>("SalonServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("SalonId");
+
+                    b.Property<int>("ServiceId");
+
+                    b.HasKey("SalonServiceId");
+
+                    b.HasIndex("SalonId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("SalonsServices");
                 });
 
             modelBuilder.Entity("SalonAplikacija.Data.Models.Service", b =>
@@ -436,11 +466,7 @@ namespace SalonAplikacija.Data.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<int>("SaloonId");
-
                     b.HasKey("ServiceId");
-
-                    b.HasIndex("SaloonId");
 
                     b.ToTable("Services");
                 });
@@ -554,6 +580,11 @@ namespace SalonAplikacija.Data.Migrations
 
             modelBuilder.Entity("SalonAplikacija.Data.Models.Salon", b =>
                 {
+                    b.HasOne("SalonAplikacija.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SalonAplikacija.Data.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
@@ -565,11 +596,16 @@ namespace SalonAplikacija.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SalonAplikacija.Data.Models.Service", b =>
+            modelBuilder.Entity("SalonAplikacija.Data.Models.SalonService", b =>
                 {
-                    b.HasOne("SalonAplikacija.Data.Models.Salon", "Saloon")
+                    b.HasOne("SalonAplikacija.Data.Models.Salon", "Salon")
                         .WithMany()
-                        .HasForeignKey("SaloonId")
+                        .HasForeignKey("SalonId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SalonAplikacija.Data.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

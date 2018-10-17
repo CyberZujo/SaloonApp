@@ -65,7 +65,7 @@ using SalonAplikacija.Web.ViewModels;
             WriteLiteral("\r\n\r\n<div class=\"contact-block\" id=\"contactBlock\">\r\n\r\n    ");
             EndContext();
             BeginContext(181, 1552, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1855b282c9394b828cb1c3d9c78889f1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cbe12fda51f249d993a32c3fbcf3c987", async() => {
                 BeginContext(229, 1497, true);
                 WriteLiteral(@"
         <div class=""row"">

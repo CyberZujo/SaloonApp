@@ -11,9 +11,6 @@ namespace SalonAplikacija.Data.Models
         [Key]
         public int ServiceId { get; set; }
 
-        [ForeignKey(nameof(Saloon)), Range(1, int.MaxValue)]
-        public int SaloonId { get; set; }
-
         [StringLength(100),Required]
         public string Name { get; set; }
 
@@ -26,6 +23,5 @@ namespace SalonAplikacija.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
 
-        public Salon Saloon { get; set; }
     }
 }
