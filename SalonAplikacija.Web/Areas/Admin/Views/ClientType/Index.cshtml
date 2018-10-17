@@ -1,0 +1,49 @@
+﻿@model List<ClientType>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-10">
+    <a asp-action="Create" class="btn btn-primary">New type</a>
+    <br />
+    <!-- BASIC TABLE -->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Client type</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Discount</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var clientType in Model)
+                    {
+                        <tr>
+                            <td>@clientType.Name</td>
+                            <td>@clientType.Description</td>
+                            <td>@clientType.Discount</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@clientType.ClientTypeId" class="btn btn-primary">Edit</a>
+                                <a asp-action="Details" asp-route-id="@clientType.ClientTypeId" class="btn btn-success">Details</a>
+                                <a asp-action="Delete" asp-route-id="@clientType.ClientTypeId" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END BASIC TABLE -->
+</div>
+

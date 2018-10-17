@@ -1,0 +1,25 @@
+﻿@model SalonAplikacija.Data.Models.ClientType
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/_Layout.cshtml";
+}
+
+<form method="get">
+    <div class="panel-heading">
+        <h3 class="panel-title">Details about client type</h3>
+    </div>
+    <div class="panel-body">
+        <fieldset disabled>
+            <input type="hidden" value="@Model.ClientTypeId" />
+            <input asp-for="Name" class="form-control" placeholder="Name" type="text">
+            <br>
+            <textarea asp-for="Description" class="form-control" placeholder="Description" rows="10"></textarea>
+            <br>
+            <input asp-for="Discount" class="form-control" placeholder="Discount" type="text">
+            <br>
+        </fieldset>
+    </div>
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-success">Back to list</a>
+    </div>
+</form>
