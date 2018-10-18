@@ -19,6 +19,8 @@
     <link href="~/css/AdminStyles/main.css" rel="stylesheet" />
     <link href="~/css/AdminStyles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
@@ -64,7 +66,7 @@
                                 </ul>
                             </li>*@
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/images/user.png" class="img-circle" alt="Avatar"> <span>@User.Identity.Name</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                 <li><a href="/Account/LockScreen"><i class="lnr lnr-cog"></i> <span>Lock screen</span></a></li>
@@ -89,6 +91,7 @@
                             <a href="#subPages" id="subClients" data-toggle="collapse"  class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Clients</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse">
                                 <ul class="nav">
+                                    <li><a href="/SaloonOwner/Clients" class="">All</a></li>
                                     <li><a href="page-profile.html" class="">Active clients</a></li>
                                     <li><a href="page-login.html" class="">Past clients</a></li>
                                 </ul>
@@ -98,6 +101,7 @@
                             <a href="#subPages" id="subAppointments" data-target="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Appointments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages2" class="collapse">
                                 <ul class="nav">
+                                    <li><a href="page-profile.html" class="">All</a></li>
                                     <li><a href="page-profile.html" class="">Active appointments</a></li>
                                     <li><a href="page-login.html" class="">Past appointments</a></li>
                                 </ul>

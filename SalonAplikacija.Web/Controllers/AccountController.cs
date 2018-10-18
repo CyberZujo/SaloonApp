@@ -157,7 +157,7 @@ namespace SalonAplikacija.Web.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    await _userManager.AddToRoleAsync(user, "SaloonOwner");
+                    await _userManager.AddToRoleAsync(user, "SalonOwner");
 
 
                     _logger.LogInformation("User created a new account with password.");
@@ -174,7 +174,7 @@ namespace SalonAplikacija.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Login");
         }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
