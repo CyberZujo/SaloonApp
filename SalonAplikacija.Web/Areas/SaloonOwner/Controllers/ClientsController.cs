@@ -58,14 +58,40 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 
             return PartialView("_LastAppointments", appointments);
         }
+
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+
+
+            return PartialView();
+        }
+
+        [HttpPost]
+        public IActionResult Update()
+        {
+
+
+            return Ok();
+        }
         #region COUNTRY-CITY DROPDOWN
         public IActionResult TestCountryCity()
         {
             List<Country> Countries = _context.Countries.ToList();
 
-            ViewBag.Countries = new SelectList(Countries, "CountryId","Name");
+            CountryCityGet model = new CountryCityGet
+            {
+                Countries = new SelectList(Countries, "CountryId", "Name")
+            };
 
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult TestCountryCity(int CountryId,int CityId)
+        {
+            return Ok();
         }
 
       
