@@ -1,0 +1,49 @@
+﻿@model SalonsVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+<form method="post" action="/SaloonOwner/Salons/Create">
+
+    @Html.AntiForgeryToken()
+    <div class="panel-heading">
+        <h3 class="panel-title">New client type</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @if(Model.Country!=null)
+            {
+                @Html.DropDownListFor(x=>x.CountryId,Model.Country as SelectList,"Select country", new { @class="form-control"})
+            }
+
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(x => x.CityId, new SelectList(" "), "Select a city", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section scripts{ 
+    <script>
+        $(document).ready(function () {
+
+            $("#CountryId").change(function () {
+                $.get("/SaloonOwner/Salons/GetCities", { CountryId: $(this).val() },
+                    function (data) {
+                        $.each(data, function (key, value) {
+
+                            console.log(data)
+                            $("#CityId").append("<option value='" + value.cityId + "'>" + value.name + "</option>")
+                        });
+                    });
+            });
+        });
+    </script>
+}
