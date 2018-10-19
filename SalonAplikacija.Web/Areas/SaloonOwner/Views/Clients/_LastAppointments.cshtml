@@ -1,0 +1,42 @@
+﻿@model List<AppointmentsGetVM>
+@{ 
+    Layout = null;
+}
+
+
+<div class="col-md-12">
+    <!-- RECENT PURCHASES -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ClientName</td>
+                            <td>@item.StartDate</td>
+                            <td>@item.EndDate</td>
+                            <td>@item.ServicePrice</td>
+                            <td>
+                                @if (item.AppointmentStatus == "InProcess")
+                                {
+                                    <span class="label label-success">@item.AppointmentStatus</span>
+                                }
+                                else if (item.AppointmentStatus == "Finished")
+                                {
+                                    <span class="label label-success">@item.AppointmentStatus</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>

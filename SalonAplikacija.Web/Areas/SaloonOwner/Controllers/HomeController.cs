@@ -62,18 +62,17 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             try
             {
-                AppointmentsGetVM model = new AppointmentsGetVM
-                {
-                    appointments = _context.AppointmentsServices.Any() ? _context.Appointments.Any() ?
+
+                List<AppointmentsGetVM> model = _context.AppointmentsServices.Any() ? _context.Appointments.Any() ?
                                                               _context.AppointmentsServices
                                                                       .Include(x => x.Service)
                                                                       .Include(x => x.Appointment)
                                                                       .Include(x => x.Appointment.AppointmentStatus)
-                                                                      .Include(x=>x.Appointment.Client)
+                                                                      .Include(x => x.Appointment.Client)
                                                                       .Where(x => x.IsDeleted == false)
                                                                       .OrderByDescending(x => x.AppointmentId)
                                                                       .Take(5)
-                                                                      .Select(x => new AppointmentsGetVM.AppointmentInfo
+                                                                      .Select(x => new AppointmentsGetVM
                                                                       {
                                                                           AppointmentId = x.AppointmentId,
                                                                           AppointmentStatus = x.Appointment.AppointmentStatus.Name,
@@ -81,10 +80,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                                                                           ServicePrice = x.Service.Price,
                                                                           StartDate = x.Appointment.StartTime.TimeOfDay.ToString(),
                                                                           EndDate = x.Appointment.EndTime.TimeOfDay.ToString(),
-                                                                          ClientName=$"{x.Appointment.Client.FirstName} {x.Appointment.Client.LastName}"
+                                                                          ClientName = $"{x.Appointment.Client.FirstName} {x.Appointment.Client.LastName}"
 
-                                                                      }).ToList() : null : null
-                };
+                                                                      }).ToList() : null : null;
+
                 return PartialView("_GetLastAppointments",model);
             }
             catch (Exception ex)

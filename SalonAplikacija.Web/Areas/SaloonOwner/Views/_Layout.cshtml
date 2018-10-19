@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
+    <link href="~/css/spinner.css" rel="stylesheet" />
 
     <link href="~/css/AdminStyles/bootstrap.css" rel="stylesheet" />
     <link href="~/css/AdminStyles/demo.css" rel="stylesheet" />
@@ -19,8 +20,8 @@
     <link href="~/css/AdminStyles/main.css" rel="stylesheet" />
     <link href="~/css/AdminStyles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.4/b-html5-1.5.4/r-2.2.2/rr-1.2.4/datatables.min.css" />
+    @*<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />*@
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
@@ -29,6 +30,7 @@
 </head>
 
 <body>
+    @*<div class="loading">Loading&#8230;</div>*@
 
     <div id="wrapper">
         <!-- NAVBAR -->
@@ -88,7 +90,7 @@
                     <ul class="nav">
                         <li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                         <li>
-                            <a href="#subPages" id="subClients" data-toggle="collapse"  class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Clients</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" id="subClients" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Clients</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse">
                                 <ul class="nav">
                                     <li><a href="/SaloonOwner/Clients" class="">All</a></li>
@@ -121,6 +123,7 @@
             <!-- MAIN CONTENT -->
             <div class="main-content">
                 <div class="container-fluid">
+
                     @RenderBody()
                 </div>
             </div>
@@ -133,8 +136,19 @@
     <script src="~/js/AdminScripts/jquery.slimscroll.min.js"></script>
     <script src="~/js/AdminScripts/klorofil-common.js"></script>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.4/b-html5-1.5.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+    <script>
+        //$(document).ajaxSend(function () {
+        //    $(".loading").show();
+        //})
+        //$(document).ajaxComplete(function () {
+        //    $(".loading").hide();
+        //});
+    </script>
+    @RenderSection("scripts", required: false)
 
-    @RenderSection("scripts",required:false)
+
 </body>
 </html>

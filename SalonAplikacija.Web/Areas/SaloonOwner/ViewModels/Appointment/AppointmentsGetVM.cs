@@ -10,25 +10,22 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Appointment
 {
     public class AppointmentsGetVM
     {
-        public IEnumerable<AppointmentInfo> appointments { get; set; }
 
-        public class AppointmentInfo
-        {
-            public int AppointmentId { get; set; }
 
-            public string StartDate { get; set; }
+        public int AppointmentId { get; set; }
 
-            public string EndDate { get; set; }
+        public string StartDate { get; set; }
 
-            public string AppointmentStatus { get; set; }
+        public string EndDate { get; set; }
 
-            public string Service { get; set; }
+        public string AppointmentStatus { get; set; }
 
-            public double ServicePrice { get; set; }
+        public string Service { get; set; }
 
-            public string ClientName { get; set; }
-           
-        }
+        public double ServicePrice { get; set; }
+
+        public string ClientName { get; set; }
+
 
         public AppointmentsGetVM()
         {
