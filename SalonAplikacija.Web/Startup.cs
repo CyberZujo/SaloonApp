@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SalonAplikacija.Data;
 using SalonAplikacija.Data.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SalonAplikacija.Web.Helpers.AjaxMessages;
+using AutoMapper;
 
 namespace SalonAplikacija.Web
 {
@@ -38,6 +40,9 @@ namespace SalonAplikacija.Web
                 options.Password.RequiredLength = 4;
             })
                 .AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
+
+            services.AddAutoMapper();
+            services.AddScoped<IAjaxFlashMessage, AjaxFlashMessage>();
 
             services.ConfigureApplicationCookie(options =>
             {

@@ -1,0 +1,39 @@
+﻿@model List<AppointmentsGetVM>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ClientName</td>
+                <td>@item.StartDate</td>
+                <td>@item.EndDate</td>
+                <td>@item.ServicePrice</td>
+                <td>
+                    @if (item.AppointmentStatus == "InProcess")
+                    {
+                        <span class="label label-success">@item.AppointmentStatus</span>
+                    }
+                    else if (item.AppointmentStatus == "Finished")
+                    {
+                        <span class="label label-success">@item.AppointmentStatus</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
