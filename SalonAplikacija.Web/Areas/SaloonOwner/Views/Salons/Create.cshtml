@@ -4,7 +4,6 @@
     Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
 
 <form method="post" action="/SaloonOwner/Salons/Create">
@@ -37,6 +36,7 @@
             $("#CountryId").change(function () {
                 $.get("/SaloonOwner/Salons/GetCities", { CountryId: $(this).val() },
                     function (data) {
+                        $("#CityId").empty();
                         $.each(data, function (key, value) {
 
                             console.log(data)
