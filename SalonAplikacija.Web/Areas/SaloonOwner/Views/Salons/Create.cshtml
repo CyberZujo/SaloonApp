@@ -15,14 +15,45 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
-            @if(Model.Country!=null)
+            <input asp-for="Name" class="form-control" placeholder="Name" type="text">
+            @Html.ValidationMessageFor(s => s.Name, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @if (Model.Country != null)
             {
-                @Html.DropDownListFor(x=>x.CountryId,Model.Country as SelectList,"Select country", new { @class="form-control"})
+                @Html.DropDownListFor(x => x.CountryId, Model.Country as SelectList, "Select country", new { @class = "form-control" })
             }
-
+            @Html.ValidationMessageFor(s => s.Country, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.DropDownListFor(x => x.CityId, new SelectList(" "), "Select a city", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.City, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input asp-for="OpeningTime" class="form-control" placeholder="Opening time" type="text">
+            @Html.ValidationMessageFor(s => s.OpeningTime, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input asp-for="ClosingTime" class="form-control" placeholder="Closing time" type="text">
+            @Html.ValidationMessageFor(s => s.ClosingTime, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input asp-for="Email" class="form-control" placeholder="Email" type="text">
+        </div>
+        <div class="form-group">
+            <input asp-for="Website" class="form-control" placeholder="Website" type="text">
+        </div>
+        <div class="form-group">
+            <input asp-for="Address" class="form-control" placeholder="Address" type="text">
+            @Html.ValidationMessageFor(s => s.Address, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input asp-for="Phone" class="form-control" placeholder="Phone" type="text">
+            @Html.ValidationMessageFor(s => s.Phone, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input asp-for="Mobile" class="form-control" placeholder="Mobile" type="text">
+            @Html.ValidationMessageFor(s => s.Mobile, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-sm btn-primary" />

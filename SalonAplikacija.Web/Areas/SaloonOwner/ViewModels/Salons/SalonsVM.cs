@@ -12,7 +12,6 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Salons
         [Key]
         public int SaloonId { get; set; }
 
-        [Required]
         public string ApplicationUserId { get; set; }
         public Data.Models.ApplicationUser AspNetUser { get; set; }
 

@@ -1,0 +1,64 @@
+﻿@model SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Salons.SalonsVM
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
+}
+
+<form method="post">
+    <div class="panel-heading">
+        <h3 class="panel-title">Details about saloon</h3>
+    </div>
+    <div class="panel-body">
+        <input type="hidden" value="@Model.SaloonId" />
+        <input asp-for="Name" class="form-control" placeholder="Name" type="text">
+        <br>
+        <div class="form-group">
+            @if (Model.Country != null)
+            {
+                @Html.DropDownListFor(x => x.CountryId, Model.Country as SelectList, "Select country", new { @class = "form-control" })
+            }
+            @Html.ValidationMessageFor(s => s.Country, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(x => x.CityId, new SelectList(" "), "Select a city", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.City, null, new { @class = "text-danger" })
+        </div>
+        <br>
+        <input asp-for="OpeningTime" class="form-control" placeholder="OpeningTime" type="text">
+        <br>
+        <input asp-for="ClosingTime" class="form-control" placeholder="ClosingTime" type="text">
+        <br>
+        <input asp-for="Address" class="form-control" placeholder="Address" type="text">
+        <br>
+        <input asp-for="Phone" class="form-control" placeholder="Phone" type="text">
+        <br>
+        <input asp-for="Mobile" class="form-control" placeholder="Mobile" type="text">
+        <br>
+        <input asp-for="Email" class="form-control" placeholder="Email" type="text">
+        <br>
+        <input asp-for="Website" class="form-control" placeholder="Website" type="text">
+        <br>
+    </div>
+    <div class="form-group">
+        <button type="submit" value="Save" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-success">Back to list</a>
+    </div>
+</form>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#CountryId").change(function () {
+                $.get("/SaloonOwner/Salons/GetCities", { CountryId: $(this).val() },
+                    function (data) {
+                        $.each(data, function (key, value) {
+
+                            console.log(data)
+                            $("#CityId").append("<option value='" + value.cityId + "'>" + value.name + "</option>")
+                        });
+                    });
+            });
+        });
+    </script>
+}

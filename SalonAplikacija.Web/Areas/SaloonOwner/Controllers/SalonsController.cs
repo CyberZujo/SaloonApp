@@ -18,9 +18,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         private readonly Context _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public SalonsController(Context context)
+        public SalonsController(Context context,UserManager<ApplicationUser>userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public List<SelectListItem> GetAllCountrys()
         {
@@ -69,7 +70,8 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             SalonsVM salon = new SalonsVM()
             {
-                Country = new SelectList(_context.Countries.ToList(), "CountryId", "Name")
+                Country = new SelectList(_context.Countries.ToList(), "CountryId", "Name"),
+               
             };
             return View(salon);
         }
@@ -99,6 +101,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             if(!ModelState.IsValid)
             {
+                var error = ViewData.ModelState.Values.ToList();
                 return View(model);
             }
             Salon salon = new Salon();
@@ -106,7 +109,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            var user = _userManager.GetUserAsync(HttpContext.User);
+            var user =await _userManager.GetUserAsync(HttpContext.User);
             salon.Name = model.Name;
             salon.CountryId = model.CountryId;
             salon.CityId = model.CityId;
@@ -122,6 +125,86 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             _context.Salons.Add(salon);
             await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int?id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var countries = new SelectList(_context.Countries.ToList(), "CountryId", "Name");
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            var salon = _context.Salons.Where(s => s.SaloonId == id).Select(s => new SalonsVM
+            {
+                SaloonId = s.SaloonId,
+                Name = s.Name,
+                CountryId = s.CountryId,
+                CityId = s.CityId,
+                Address = s.Address,
+                OpeningTime = s.OpeningTime,
+                ClosingTime = s.ClosingTime,
+                Phone = s.Phone,
+                Mobile = s.Mobile,
+                ApplicationUserId = user.Id.ToString(),
+                Email = s.Email,
+                Country=countries
+
+            }).Single();
+            
+            return View(salon);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int? id,SalonsVM model)
+        {
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            if (id==0)
+            {
+                return NotFound();
+            }
+            if(model==null)
+            {
+                if (model.SaloonId != 0)
+                {
+                    return RedirectToAction("Edit", new { Id = model.SaloonId });
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            Salon salon = new Salon();
+            salon = _context.Salons.Where(s => s.SaloonId == id).FirstOrDefault();
+            salon.Name = model.Name;
+            salon.CountryId = model.CountryId;
+            salon.CityId = model.CityId;
+            salon.OpeningTime = model.OpeningTime;
+            salon.ClosingTime = model.ClosingTime;
+            salon.Address = model.Address;
+            salon.Phone = model.Phone;
+            salon.Mobile = model.Mobile;
+            salon.Website = model.Website;
+            salon.ApplicationUserId = user.Id.ToString();
+
+            return View(salon);
+        }
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if(id==0)
+            {
+                return NotFound();
+            }
+            var salon = _context.Salons.Where(s => s.SaloonId == id).FirstOrDefault();
+            if(salon==null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            _context.Salons.Remove(salon);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }
