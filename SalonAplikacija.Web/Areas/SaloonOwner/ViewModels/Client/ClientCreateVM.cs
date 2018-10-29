@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using SalonAplikacija.Data.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
 {
-    public class ClientUpdateVM
+    public class ClientCreateVM
     {
         [Required]
         public int ClientId { get; set; }
@@ -22,17 +21,17 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
         [Required]
         public int ClientTypeId { get; set; }
 
-        [Required(ErrorMessage ="First name is required")]
+        [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage="Last name is required")]
+        [Required(ErrorMessage = "Last name is required")]
         public string LastName { get; set; }
 
         public string Address { get; set; }
 
         public string Email { get; set; }
 
-        [Required(ErrorMessage="Phone is required")]
+        [Required(ErrorMessage = "Phone is required")]
         public string Phone { get; set; }
 
         [Required]
@@ -41,25 +40,25 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> ClientTypes { get; set; }
 
-        public ClientUpdateVM()
+        public ClientCreateVM()
         {
 
         }
 
-        public static implicit operator SalonAplikacija.Data.Models.Client(ClientUpdateVM model)
+        public static implicit operator SalonAplikacija.Data.Models.Client(ClientCreateVM model)
         {
             return new SalonAplikacija.Data.Models.Client
             {
-                ClientId=model.ClientId,
-                CityId=model.CityId,
-                CountryId=model.CountryId,
-                ClientTypeId=model.ClientTypeId,
-                Address=model.Address,
-                Email=model.Email,
-                FirstName=model.FirstName,
-                LastName=model.LastName,
-                Phone=model.Phone,
-                IsDeleted=model.IsDeleted
+                ClientId = model.ClientId,
+                CityId = model.CityId,
+                CountryId = model.CountryId,
+                ClientTypeId = model.ClientTypeId,
+                Address = model.Address,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Phone = model.Phone,
+                IsDeleted = model.IsDeleted
             };
         }
     }

@@ -14,7 +14,9 @@
     <!-- VENDOR CSS -->
     <link href="~/css/spinner.css" rel="stylesheet" />
 
-    <link href="~/css/AdminStyles/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    @*<link href="~/css/AdminStyles/bootstrap.css" rel="stylesheet" />*@
     <link href="~/css/AdminStyles/demo.css" rel="stylesheet" />
     <link href="~/css/AdminStyles/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/AdminStyles/main.css" rel="stylesheet" />
@@ -130,22 +132,32 @@
         </div>
 
     </div>
+    @*<script src="~/js/AdminScripts/jquery.min.js"></script>*@
 
-    <script src="~/js/AdminScripts/jquery.min.js"></script>
-    <script src="~/js/AdminScripts/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <environment include="Development">
+        <script src="~/js/site.js"></script>
+    </environment>
+    @*<script src="~/js/AdminScripts/bootstrap.min.js"></script>*@
     <script src="~/js/AdminScripts/jquery.slimscroll.min.js"></script>
     <script src="~/js/AdminScripts/klorofil-common.js"></script>
+    @*<script src="~/lib/Microsoft.jQuery.Unobtrusive.Ajax/jquery.unobtrusive-ajax.min.js"></script>*@
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>*@
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>*@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.4/b-html5-1.5.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
     <script>
-        //$(document).ajaxSend(function () {
-        //    $(".loading").show();
-        //})
-        //$(document).ajaxComplete(function () {
-        //    $(".loading").hide();
-        //});
+                                                                //$(document).ajaxSend(function () {
+                                                                //    $(".loading").show();
+                                                                //})
+                                                                //$(document).ajaxComplete(function () {
+                                                                //    $(".loading").hide();
+                                                                //});
+
+
+
+
     </script>
     @RenderSection("scripts", required: false)
 
