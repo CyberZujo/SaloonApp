@@ -1,19 +1,14 @@
 ﻿@model ClientUpdateVM
-
-@inject IAjaxFlashMessage AjaxFlashMessage
-@{ 
-    Layout = null;
-}
-
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
 <div class="form-container">
-    <form id="frmUpdateClient">
+    <form asp-action="Update" id="frmClientUpdate">
         @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
-        @AjaxFlashMessage.Display()
-        @Html.AntiForgeryToken()
-
         <input asp-for="ClientId" value="@Model.ClientId" type="hidden" />
+        <input asp-for="FromProfileUpdate" type="hidden" value="@Model.FromProfileUpdate" />
 
+        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
 
         <div class="form-group">
             @Html.DropDownListFor(x => x.ClientTypeId, Model.ClientTypes as SelectList, "Select a type", new { @class = "form-control" })
@@ -37,13 +32,9 @@
         </div>
         <div class="form-group">
             <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-
         </div>
         <div class="form-group">
             <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
-
         </div>
         <div class="form-group">
             <input asp-for="Phone" class="form-control" />
@@ -54,7 +45,7 @@
         </div>
     </form>
 </div>
-  
+      
 <script>
     //Country-city cascade dropdown logic
 
@@ -79,12 +70,10 @@
                 });
         });
 
-
         $("#btnUpdateClient").click(function (event) {
             event.preventDefault();
-
             var actionUrl = "/SaloonOwner/Clients/Update";
-            var formData = $("#frmUpdateClient").serialize();
+            var formData = $("#frmClientUpdate").serialize();
 
             $.ajax({
                 type: "POST",
@@ -92,11 +81,13 @@
                 data: formData,
                 success: function (data) {
                     $(".form-container").html(data);
-                    $("#dataTable").load("/SaloonOwner/Clients/LoadDataTable");
-
-                    setTimeout(function () {
+                    
+                    //setTimeout(function () {
+                    //    location.reload();
+                    //}, 3000);
+                    if ($("[name='IsValid']").val() === 'True') {
                         location.reload();
-                    }, 3000);
+                    }
                 },
                 error: function (er) {
                     console.error(er);

@@ -28,8 +28,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
         [Required(ErrorMessage="Last name is required")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Address is required")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
         [Required(ErrorMessage="Phone is required")]
@@ -38,12 +40,14 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
         [Required]
         public bool IsDeleted { get; set; }
 
+        public int FromProfileUpdate { get; set; }
+
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> ClientTypes { get; set; }
 
         public ClientUpdateVM()
         {
-
+            FromProfileUpdate = 0;
         }
 
         public static implicit operator SalonAplikacija.Data.Models.Client(ClientUpdateVM model)

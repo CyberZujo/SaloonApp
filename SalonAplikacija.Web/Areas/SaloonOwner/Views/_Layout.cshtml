@@ -125,8 +125,23 @@
             <!-- MAIN CONTENT -->
             <div class="main-content">
                 <div class="container-fluid">
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                </div>
+                                <div class="modal-body">
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnCloseModal" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                     @RenderBody()
+
+
                 </div>
             </div>
         </div>
@@ -144,8 +159,8 @@
     <script src="~/js/AdminScripts/klorofil-common.js"></script>
     @*<script src="~/lib/Microsoft.jQuery.Unobtrusive.Ajax/jquery.unobtrusive-ajax.min.js"></script>*@
 
-    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>*@
-    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>*@
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>*@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.4/b-html5-1.5.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
     <script>
                                                                 //$(document).ajaxSend(function () {
@@ -156,7 +171,7 @@
                                                                 //});
 
 
-
+      
 
     </script>
     @RenderSection("scripts", required: false)

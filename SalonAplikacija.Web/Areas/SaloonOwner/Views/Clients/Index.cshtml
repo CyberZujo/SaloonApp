@@ -5,8 +5,9 @@
     Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
 
 }
-@AjaxFlashMessage.Display()
-
+<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="CreateClient()">
+    Create
+</button>
 
 <div class="row" id="dataDiv">
     <div class="col-md-12">
@@ -14,9 +15,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#add-client" data-url="@Url.Action("Create","Clients")">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
-                        </button>
+
                     </div>
                 </div>
             </div>
@@ -32,28 +31,26 @@
                             <th>Option</th>
                             <th>Option</th>
                             <th>Option</th>
-                            <th>Option</th>
                         </tr>
                     </thead>
                     <tbody id="clientsData">
                         @foreach (var client in Model)
                         {
-                        <tr>
-                            <td>@client.FirstName @client.LastName</td>
-                            <td>@client.CityName</td>
-                            <td>@client.TypeOfClient</td>
-                            <td>@client.Address</td>
-                            <td>@client.Phone</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal" data-target="#update-client" data-url="@Url.Action("Update","Clients",new { id=client.ClientId})">
-                                    Edit
-                                </button>
-                            </td>
-                            <td><button class="btn btn-sm btn-primary" value="@client.ClientId" id="btnLastAppointments" onclick="GetLastAppointments(@client.ClientId)">Last 5 appointments</button></td>
-                            <td><button class="btn btn-sm btn-success" value="@client.ClientId" id="btnRemoveClient">Remove</button></td>
-                            <td><a asp-action="Details" asp-controller="Clients" asp-route-id="@client.ClientId" class="btn btn-sm btn-success">See details</a></td>
+                            <tr>
+                                <td>@client.FirstName @client.LastName</td>
+                                <td>@client.CityName</td>
+                                <td>@client.TypeOfClient</td>
+                                <td>@client.Address</td>
+                                <td>@client.Phone</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateClient(@client.ClientId)">
+                                        Edit
+                                    </button>
+                                </td>
+                                <td><button class="btn btn-sm btn-success" value="@client.ClientId" id="btnRemoveClient">Remove</button></td>
+                                <td><a asp-action="Details" asp-controller="Clients" asp-route-id="@client.ClientId" class="btn btn-sm btn-success">See details</a></td>
 
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -62,24 +59,29 @@
 
     </div>
 </div>
-<div id="modal-placeholder"></div>
 
 @section scripts{
 
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
+            $('#dataTable').DataTable();
+              
         });
 
         var RemoveClient = function (id) {
 
         }
-        var GetLastAppointments = function (id) {
-            var url = "/SaloonOwner/Clients/LastAppointments/" + id;
-            $("#myModalBody").load(url, function () {
-                $("#myModal").modal("show");
+        var CreateClient = function () {
+            $(".modal-body").load("/SaloonOwner/Clients/Create", function () {
+                $("#myModal").show();
             });
         }
+        var UpdateClient = function (id) {
+            $(".modal-body").load("/SaloonOwner/Clients/Update/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+
     </script>
 }
 

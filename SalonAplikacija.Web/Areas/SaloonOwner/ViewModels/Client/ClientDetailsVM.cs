@@ -7,6 +7,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
 {
     public class ClientDetailsVM
     {
+        public int ClientId { get; set; }
         public string CountryName { get; set; }
         public string CityName { get; set; }
         public string ClientName { get; set; }
@@ -23,7 +24,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client
 
         public ClientDetailsVM()
         {
-
+            NumberOfServicesUsed = 0;
+            TotalAppointmentsCount = 0;
+            CurrentMonthAppointmentsCount = 0;
+            TotalMoneySpent = 0;
         }
     }
 }

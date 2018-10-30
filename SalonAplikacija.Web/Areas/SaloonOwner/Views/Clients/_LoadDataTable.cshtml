@@ -2,6 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 <table id="dataTable" class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -13,10 +14,9 @@
             <th>Option</th>
             <th>Option</th>
             <th>Option</th>
-            <th>Option</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="clientsData">
         @foreach (var client in Model)
         {
             <tr>
@@ -26,13 +26,13 @@
                 <td>@client.Address</td>
                 <td>@client.Phone</td>
                 <td>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal" data-target="#update-client" data-url="@Url.Action("Update","Clients",new { id=client.ClientId})">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateClient(@client.ClientId)">
                         Edit
                     </button>
                 </td>
-                <td><button class="btn btn-sm btn-primary" value="@client.ClientId" id="btnLastAppointments" onclick="GetLastAppointments(@client.ClientId)">Last 5 appointments</button></td>
                 <td><button class="btn btn-sm btn-success" value="@client.ClientId" id="btnRemoveClient">Remove</button></td>
                 <td><a asp-action="Details" asp-controller="Clients" asp-route-id="@client.ClientId" class="btn btn-sm btn-success">See details</a></td>
+
             </tr>
         }
     </tbody>
