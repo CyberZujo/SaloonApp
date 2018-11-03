@@ -11,6 +11,7 @@ using SalonAplikacija.Data;
 using SalonAplikacija.Data.Models;
 using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Appointment;
 using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client;
+using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Services;
 using SalonAplikacija.Web.Helpers.AjaxMessages;
 using SalonAplikacija.Web.Helpers.Utils;
 namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
@@ -43,60 +44,18 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 
             return View(clients);
         }
-        [HttpGet]
-        public JsonResult DataTableSource()
-        {
-            List<ClientsGetVM> clients = new List<ClientsGetVM>();
-
-            foreach (var item in _context.Clients.Include(x => x.Country)
-                                                .Include(x => x.City)
-                                                .Include(x => x.ClientType))
-            {
-                clients.Add(new ClientsGetVM
-                {
-                    ClientId = item.ClientId,
-                    CountryId = item.CountryId,
-                    CityId = item.CityId,
-                    ClientTypeId = item.ClientTypeId,
-                    Address = item.Address,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                    Email = item.Email,
-                    Phone = item.Phone,
-                    IsDeleted = item.IsDeleted,
-                    CityName = item.City.Name,
-                    CountryName = item.Country.Name,
-                    TypeOfClient = item.ClientType.Name
-                });
-            }
-            return Json(clients);
-        }
+       
         [HttpGet]
         public IActionResult LoadDataTable()
         {
-            List<ClientsGetVM> clients = new List<ClientsGetVM>();
+            var clients = _mapper.Map<List<ClientsGetVM>>(_context.Clients
+                                                                  .Include(x => x.Country)
+                                                                  .Include(x => x.City)
+                                                                  .Include(x => x.ClientType)
+                                                                  .ToList());
 
-            foreach(var item in _context.Clients.Include(x=>x.Country)
-                                                .Include(x=>x.City)
-                                                .Include(x=>x.ClientType))
-            {
-                clients.Add(new ClientsGetVM
-                {
-                    ClientId=item.ClientId,
-                    CountryId=item.CountryId,
-                    CityId=item.CityId,
-                    ClientTypeId=item.ClientTypeId,
-                    Address=item.Address,
-                    FirstName=item.FirstName,
-                    LastName=item.LastName,
-                    Email=item.Email,
-                    Phone=item.Phone,
-                    IsDeleted=item.IsDeleted,
-                    CityName=item.City.Name,
-                    CountryName=item.Country.Name,
-                    TypeOfClient=item.ClientType.Name
-                });
-            }
+            if (clients == null)
+                return NotFound();
 
             return PartialView("_LoadDataTable", clients);
         }
@@ -127,6 +86,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                                                                  .Select(x => new ClientDetailsVM
                                                                  {
                                                                      ClientId = x.Appointment.ClientId,
+                                                                     ClientTypeId=x.Appointment.Client.ClientTypeId,
                                                                      ClientName = $"{x.Appointment.Client.FirstName} {x.Appointment.Client.LastName}",
                                                                      Address = x.Appointment.Client.Address,
                                                                      CityName = x.Appointment.Client.City.Name,
@@ -161,15 +121,24 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                                                                         .Select(x => x.ServiceId)
                                                                         .Count();
 
+                   
 
 
-
-
+                    model.MostUsedService = _context.AppointmentsServices.Include(x => x.Service)
+                                                                       .GroupBy(x => x.ServiceId)
+                                                                       .OrderByDescending(x => x.Count())
+                                                                       .Select(s => new
+                                                                       {
+                                                                           ServiceId = s.Key,
+                                                                           Name = s.FirstOrDefault().Service.Name,
+                                                                           Count = s.Count()
+                                                                       }).Take(1).FirstOrDefault().Name;
 
                 }
                 else
                 {
                     model.ClientId = client.ClientId;
+                    model.ClientTypeId = client.ClientTypeId;
                     model.ClientName = $"{client.FirstName} {client.LastName}";
                     model.Address = client.Address;
                     model.CityName = client.City.Name;
@@ -224,6 +193,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 
             if (!ModelState.IsValid)
             {
+                Response.StatusCode = 400;
                 return PartialView("_Create", model);
             }
             try
@@ -287,6 +257,8 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             model.ClientTypes = new SelectList(GetClientTypes(), "ClientTypeId", "Name");
             if (!ModelState.IsValid)
             {
+                Response.StatusCode = 400;
+
                 if(model.FromProfileUpdate==1)
                 {
                     return PartialView("_UpdateFromProfile", model);
@@ -325,22 +297,96 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return PartialView("_Delete");
+            var model = _mapper.Map<ClientDeleteVM>(_context.Clients.Include(x => x.Country)
+                                                                    .Include(x => x.City)
+                                                                    .Include(x => x.ClientType)
+                                                                    .FirstOrDefault());
+            if (model == null)
+                return Index();
+
+            return PartialView("_Delete", model);
         }
         [HttpPost]
-        public IActionResult Delete()
+        public IActionResult Delete(ClientDeleteVM model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    Response.StatusCode = 400;
+                    return PartialView("_Delete", model);
 
+                }
+
+                var client = _context.Clients.Where(x => x.ClientId == model.ClientId).FirstOrDefault();
+
+                if (client == null)
+                    return RedirectToAction("Index");
+
+                var appointmentsServices = _context.AppointmentsServices.Include(x => x.Appointment)
+                                                                     .Where(x => x.Appointment.ClientId == client.ClientId)
+                                                                     .ToArray();
+
+                var appointments = _context.Appointments.Where(x => x.ClientId == client.ClientId).ToArray();
+
+
+                _context.AppointmentsServices.RemoveRange(appointmentsServices);
+                _context.Appointments.RemoveRange(appointments);
+                _context.Remove(client);
+                _context.SaveChanges();
+
+                return PartialView("_Delete", model);
+            }
+            catch (Exception ex)
+            {
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+        }
+
+
+
+        [HttpPost]
+        public IActionResult ChangeType(ClientTypeJsonVM data)
+        {
+            try
+            {
+                var client = _context.Clients.Where(x => x.ClientId == data.value).FirstOrDefault();
+
+                if (client == null)
+                    return new StatusCodeResult(404);
+
+                client.ClientTypeId = Convert.ToInt32(data.text);
+
+                _context.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception x)
             {
 
                 throw;
             }
         }
+
+        [HttpGet]
+        public JsonResult GetClientTypesJson()
+        {
+            List<ClientTypeJsonVM> clientTypes = new List<ClientTypeJsonVM>();
+
+            foreach(var type in _context.ClientType.Where(x=>x.IsDeleted==false).ToList())
+            {
+                clientTypes.Add(new ClientTypeJsonVM {
+
+                    value=type.ClientTypeId,
+                    text=type.Name
+                });
+            }
+
+            clientTypes.Insert(0, new ClientTypeJsonVM { value = 0, text = "Select a type" });
+            clientTypes.OrderByDescending(x => x.value);
+            return Json(clientTypes);
+        }
+
 
         [NonAction]
         public IEnumerable<Country> GetCountries()

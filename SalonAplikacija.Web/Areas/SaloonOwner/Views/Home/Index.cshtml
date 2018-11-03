@@ -51,12 +51,12 @@
     </div>
 </div>
 
-<div id="loading-div-background" style="display:none">
-    <div id="loading-div" class="ui-corner-all">
-        <div id="loadingbar"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
-        <h2 style="color:gray;font-weight:normal;">Please wait....</h2>
-    </div>
-</div>
+@*<div id="loading-div-background" style="display:none">
+        <div id="loading-div" class="ui-corner-all">
+            <div id="loadingbar"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+            <h2 style="color:gray;font-weight:normal;">Please wait....</h2>
+        </div>
+    </div>*@
 
 <div class="row">
     <div class="col-md-6">
@@ -84,6 +84,8 @@
     <div class="col-md-6">
         <!-- TIMELINE -->
         <div class="panel">
+            
+            <a href="#" onclick="GetMonthlyEarnings()" class="text-primary text-center"><h3>Get monthly income</h3></a>
             <div class="panel-heading">
                 <h3 class="panel-title">Income</h3>
                 <div class="right">
@@ -125,6 +127,13 @@
         $(function () {
             $("#appointmentsPanel").load("/SaloonOwner/Home/GetLastAppointments");
         });
+
+
+        var GetMonthlyEarnings = function () {
+            $(".modal-body").load("/SaloonOwner/Home/GetEarningsByMonth", function () {
+                $("#myModal").modal("show");
+            });
+        };
     </script>
 }
 

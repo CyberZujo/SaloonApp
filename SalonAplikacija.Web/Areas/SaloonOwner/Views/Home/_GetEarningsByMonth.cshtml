@@ -1,0 +1,16 @@
+﻿@model List<EarningsByMonthVM>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Earnings by month in @Model[0].Year
+    </div>
+</div>
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">Month: @item.Month <span class="pull-right">@item.Total <i class="fas fa-money-bill-alt"></i></span></li>
+    }
+</ul>

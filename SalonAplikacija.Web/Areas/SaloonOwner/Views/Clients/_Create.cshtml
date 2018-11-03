@@ -69,16 +69,12 @@
                 type: "POST",
                 url: actionUrl,
                 data: formData,
-                success: function (data) {
-                    $(".form-container").html(data);
-                    $("#dataTable").load("/SaloonOwner/Clients/LoadDataTable");
-
-                    setTimeout(function () {
-                        location.reload();
-                    }, 3000);
+                success: function () {
+                    $("#dataBody").load("/SaloonOwner/Clients/LoadDataTable");
                 },
-                error: function (er) {
-                    console.error(er);
+                error: function (data) {
+                    $(".form-container").html(data.responseText);
+
                 }
             });
         });

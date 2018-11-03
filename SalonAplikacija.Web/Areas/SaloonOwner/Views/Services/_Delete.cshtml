@@ -1,22 +1,20 @@
-﻿@model ClientDeleteVM
+﻿@model ServicesDeleteVM
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+
 <div class="col-md-12">
     <h4 class="text-center" style="color:#d9534f">
         <span class="glyphicon glyphicon-remove-sign">
-          </span> Deleting a client means deleting all appointments too
+        </span> You're about to delete a service'
     </h4>
 </div>
 <div class="form-container">
-    <form id="frmDeleteClient">
-        <input asp-for="ClientId" type="hidden" />
-
+    <form id="frmDeleteService">
+        <input asp-for="ServiceId" type="hidden" />
         <div class="form-group">
-            <input asp-for="ClientName" class="form-control" readonly="readonly" />
-        </div>
-        <div class="form-group">
-            <input asp-for="ClientEmail" type="text" class="form-control" readonly="readonly" />
+            <input asp-for="ServiceName" class="form-control" readonly="readonly" />
         </div>
         <div class="form-group">
             <input type="button" id="btnSubmit" value="Delete" class="btn btn-sm btn-danger" />
@@ -29,22 +27,20 @@
     $("#btnSubmit").click(function (event) {
         event.preventDefault();
 
-        var actionUrl = "/SaloonOwner/Clients/Delete";
-        var formData = $("#frmDeleteClient").serialize();
+
+        var actionUrl = "/SaloonOwner/Services/Delete";
+        var formData = $("#frmDeleteService").serialize();
 
         $.ajax({
             type: "POST",
             url: actionUrl,
             data: formData,
-            success: function (data) {
-
-                $("#dataBody").load("/SaloonOwner/Clients/LoadDataTable");
+            success: function () {
+                $("#dataBody").load("/SaloonOwner/Services/LoadDataTable");
             },
             error: function (data) {
                 $(".form-container").html(data.responseText);
-
             }
         });
-
     });
 </script>

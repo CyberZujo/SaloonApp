@@ -5,17 +5,15 @@
     Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
 
 }
-<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="CreateClient()">
-    Create
-</button>
-
 <div class="row" id="dataDiv">
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-4">
-
+                        <button type="button" id="btnCreate" data-toggle="modal" data-target="#myModal" onclick="CreateClient()">
+                            <span>Create  </span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -47,7 +45,7 @@
                                         Edit
                                     </button>
                                 </td>
-                                <td><button class="btn btn-sm btn-success" value="@client.ClientId" id="btnRemoveClient">Remove</button></td>
+                                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal"  id="btnRemoveClient" onclick="RemoveClient(@client.ClientId)">Remove</button></td>
                                 <td><a asp-action="Details" asp-controller="Clients" asp-route-id="@client.ClientId" class="btn btn-sm btn-success">See details</a></td>
 
                             </tr>
@@ -69,7 +67,9 @@
         });
 
         var RemoveClient = function (id) {
-
+            $(".modal-body").load("/SaloonOwner/Clients/Delete/" + id, function () {
+                $("#myModal").show();
+            });
         }
         var CreateClient = function () {
             $(".modal-body").load("/SaloonOwner/Clients/Create", function () {

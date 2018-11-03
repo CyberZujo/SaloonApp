@@ -33,7 +33,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                     ClientsCount = _context.Clients.Any() ? _context.Clients.Where(x => x.IsDeleted == false).Count() : 0,
                     ServicesCount = _context.Services.Any() ? _context.Services.Where(x => x.IsDeleted == false).Count() : 0,
                     AppointmentsCount = _context.Appointments.Any() ? _context.Appointments.Where(x => x.IsDeleted == false).Count() : 0,
-                    SpecialClientsCount = _context.ClientType.Any() ? _context.ClientType.Where(x => x.IsDeleted == false).Count() : 0,
+                    SpecialClientsCount = _context.Clients.Any() ? _context.Clients.Where(x => x.IsDeleted == false && x.ClientTypeId != 0).Count() : 0,
                     #endregion
                     #region Data sum
                     CurrentMonthIncome = _context.AppointmentsServices.Any() ? _context.AppointmentsServices.Where(x => x.IsDeleted == false)
@@ -90,6 +90,33 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetEarningsByMonth()
+        {
+            var query = from a in _context.AppointmentsServices.Include(x => x.Appointment)
+                                                               .Where(x => x.Appointment.StartTime.Year == DateTime.Now.Year && x.Appointment.EndTime.Year == DateTime.Now.Year)
+                        group a by new
+                        {
+                            Year = a.Appointment.EndTime.Year,
+                            Month = a.Appointment.EndTime.Month
+                        } into g
+                        select new
+                        {
+                            Year=g.Key.Year,
+                            Month = g.Key.Month,
+                            Total = g.Sum(t => t.Total)
+                        };
+
+            List<EarningsByMonthVM> model = query.Select(x => new EarningsByMonthVM
+            {
+                Year=x.Year,
+                Month=x.Month,
+                Total=x.Total
+            }).ToList();
+            
+            return PartialView("_GetEarningsByMonth",model);
         }
     }
 }

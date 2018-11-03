@@ -7,6 +7,7 @@ using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client;
 using SalonAplikacija.Data.Models;
 using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Appointment;
 using SalonAplikacija.Data;
+using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Services;
 
 namespace SalonAplikacija.Web.Helpers.AutoMapper
 {
@@ -44,6 +45,60 @@ namespace SalonAplikacija.Web.Helpers.AutoMapper
             }).ForMember(dest => dest.EndDate, option =>
             {
                 option.MapFrom(src => src.Appointment.EndTime);
+            });
+
+            CreateMap<Client, ClientDeleteVM>().ForMember(dest => dest.ClientId, option =>
+            {
+                option.MapFrom(src => src.ClientId);
+            }).ForMember(dest => dest.ClientName, option =>
+            {
+                option.MapFrom(src => src.FirstName + " " + src.LastName);
+            }).ForMember(dest => dest.ClientEmail, option =>
+            {
+                option.MapFrom(src => src.Email);
+            });
+
+            CreateMap<Service, ServicesGetVM>().ForMember(dest => dest.ServiceId, option =>
+            {
+                option.MapFrom(src => src.ServiceId);
+            }).ForMember(dest => dest.Name, option =>
+            {
+                option.MapFrom(src => src.Name);
+            }).ForMember(dest => dest.Price, option =>
+            {
+                option.MapFrom(src => src.Price);
+            }).ForMember(dest => dest.Duration, option =>
+            {
+                option.MapFrom(src => src.Duration);
+            }).ForMember(dest => dest.IsDeleted, option =>
+            {
+                option.MapFrom(src => src.IsDeleted);
+            });
+
+
+            CreateMap<Service, ServicesUpdateVM>().ForMember(dest => dest.ServiceId, option =>
+            {
+                option.MapFrom(src => src.ServiceId);
+            }).ForMember(dest => dest.Name, option =>
+            {
+                option.MapFrom(src => src.Name);
+            }).ForMember(dest => dest.Price, option =>
+            {
+                option.MapFrom(src => src.Price);
+            }).ForMember(dest => dest.Duration, option =>
+            {
+                option.MapFrom(src => src.Duration);
+            }).ForMember(dest => dest.IsDeleted, option =>
+            {
+                option.MapFrom(src => src.IsDeleted);
+            });
+
+            CreateMap<Service, ServicesDeleteVM>().ForMember(dest => dest.ServiceId, option =>
+            {
+                option.MapFrom(src => src.ServiceId);
+            }).ForMember(dest => dest.ServiceName, option =>
+            {
+                option.MapFrom(src => src.Name);
             });
         }
     }
