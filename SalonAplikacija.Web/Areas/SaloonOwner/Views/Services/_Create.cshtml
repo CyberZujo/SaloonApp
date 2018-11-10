@@ -2,6 +2,10 @@
 
 @inject IAjaxFlashMessage AjaxFlashMessage
 
+
+<link href="~/js/clockpicker/css/github.min.css" rel="stylesheet" />
+<link href="~/js/clockpicker/dist/bootstrap-clockpicker.css" rel="stylesheet" />
+
 <div class="form-container">
     <form id="frmCreateService">
         <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
@@ -9,23 +13,37 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            <input asp-for="Name" class="form-control" placeholder="Name"/>
+            <input asp-for="Name" class="form-control" placeholder="Name" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Price" class="form-control" placeholder="Price"/>
+            <input asp-for="Price" class="form-control" placeholder="Price" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
+        <div class="input-group clockpicker" data-placement="right" data-align="top" data-autoclose="true">
+            <input type="text" name="Duration" class="form-control" value="@DateTime.Now.ToShortTimeString().ToString()">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span>
+        </div>
+        <div class="form-group"></div>
         <div class="form-group">
             <button type="button" class="btn btn-sm btn-primary" id="btnCreateService" data-save="modal">Save</button>
         </div>
+
     </form>
+
 </div>
 
+<script src="~/js/clockpicker/js/highlight.min.js"></script>
+<script src="~/js/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
 <script>
+
+    $(".clockpicker").clockpicker();
+
 
     $("#btnCreateService").click(function (event) {
         event.preventDefault();

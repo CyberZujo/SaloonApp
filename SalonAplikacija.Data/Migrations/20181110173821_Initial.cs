@@ -100,7 +100,7 @@ namespace SalonAplikacija.Data.Migrations
                     ServiceId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Duration = table.Column<DateTime>(nullable: false),
+                    Duration = table.Column<string>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -243,6 +243,7 @@ namespace SalonAplikacija.Data.Migrations
                 {
                     ClientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: false),
                     CountryId = table.Column<int>(nullable: false),
                     CityId = table.Column<int>(nullable: false),
                     ClientTypeId = table.Column<int>(nullable: false),
@@ -273,6 +274,12 @@ namespace SalonAplikacija.Data.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "CountryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clients_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -505,6 +512,11 @@ namespace SalonAplikacija.Data.Migrations
                 name: "IX_Clients_CountryId",
                 table: "Clients",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_UserId",
+                table: "Clients",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Salons_ApplicationUserId",

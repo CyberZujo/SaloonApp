@@ -58,7 +58,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             ServicesCreateVM model = new ServicesCreateVM
             {
-                Duration = DateTime.Now.AddMinutes(10)
+               
             };
             return PartialView("_Create",model);
         }

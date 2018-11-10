@@ -11,6 +11,8 @@ namespace SalonAplikacija.Data.Models
         [Key]
         public int ClientId { get; set; }
 
+        public string UserId { get; set; }
+
         [ForeignKey(nameof(Country)), Range(1, int.MaxValue), Required]
         public int CountryId { get; set; }
 
@@ -41,5 +43,8 @@ namespace SalonAplikacija.Data.Models
         public Country Country { get; set; }
         public City City { get; set; }
         public ClientType ClientType { get; set; }
+
+        [ForeignKey("UserId"), Required]
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

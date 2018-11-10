@@ -14,6 +14,7 @@ using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client;
 using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Services;
 using SalonAplikacija.Web.Helpers.AjaxMessages;
 using SalonAplikacija.Web.Helpers.Utils;
+using Vereyon.Web;
 namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 {
     [Area("SaloonOwner")]
@@ -178,8 +179,8 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             ClientCreateVM model = new ClientCreateVM
             {
-                Countries = new SelectList(GetCountries(),"CountryId","Name"),
-                ClientTypes=new SelectList(GetClientTypes(),"ClientTypeId","Name")
+                Countries = new SelectList(GetCountries(), "CountryId", "Name"),
+                ClientTypes = new SelectList(GetClientTypes(), "ClientTypeId", "Name") 
             };
             return PartialView("_Create",model);
         }
@@ -277,6 +278,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                 _context.SaveChanges();
                 _ajaxFlashMessage.Success("Client updated");
 
+                
                 if(model.FromProfileUpdate==1)
                 {
                     //return RedirectToAction("Details", new { id = model.ClientId });
@@ -393,14 +395,14 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             return _context.Countries.Any() ? _context.Countries
                                                       .Where(x => x.IsDeleted == false)
-                                                      .ToList() : null;
+                                                      .ToList() : new List<Country>();
         }
         [NonAction]
         public IEnumerable<ClientType>GetClientTypes()
         {
             return _context.ClientType.Any() ? _context.ClientType
                                                        .Where(x => x.IsDeleted == false)
-                                                       .ToList() : null;
+                                                       .ToList() : new List<ClientType>();
 
         }
         [HttpGet]

@@ -35,7 +35,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Services
                 ServiceId = model.ServiceId,
                 Name = model.Name,
                 Price = model.Price,
-                Duration = model.Duration,
+               // Duration = model.Duration,
                 IsDeleted = model.IsDeleted
             };
         }

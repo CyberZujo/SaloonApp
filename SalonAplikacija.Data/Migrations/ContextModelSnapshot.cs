@@ -322,6 +322,9 @@ namespace SalonAplikacija.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
                     b.HasKey("ClientId");
 
                     b.HasIndex("CityId");
@@ -329,6 +332,8 @@ namespace SalonAplikacija.Data.Migrations
                     b.HasIndex("ClientTypeId");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Clients");
                 });
@@ -456,7 +461,8 @@ namespace SalonAplikacija.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Duration");
+                    b.Property<string>("Duration")
+                        .IsRequired();
 
                     b.Property<bool>("IsDeleted");
 
@@ -575,6 +581,11 @@ namespace SalonAplikacija.Data.Migrations
                     b.HasOne("SalonAplikacija.Data.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SalonAplikacija.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

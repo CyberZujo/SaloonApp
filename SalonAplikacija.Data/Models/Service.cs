@@ -15,7 +15,7 @@ namespace SalonAplikacija.Data.Models
         public string Name { get; set; }
 
         [Required]
-        public DateTime Duration { get; set; }
+        public string Duration { get; set; }
 
         [Required]
         public double Price { get; set; }
