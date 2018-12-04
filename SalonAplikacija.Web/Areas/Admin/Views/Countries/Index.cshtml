@@ -5,36 +5,69 @@
 }
 
 
+<div class="row" id="dataDiv">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" id="btnCreate" data-toggle="modal" data-target="#myModal" onclick="CreateCountry()">
+                            <span>Create  </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" id="dataBody">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Option</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsData">
+                        @foreach (var country in Model)
+                        {
+                            <tr>
+                                <td>@country.Name</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateCountry(@country.CountryId)">
+                                        Edit
+                                    </button>
+                                </td>
+                                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveCountry(@country.CountryId)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<div class="col-md-10">
-    <!-- BASIC TABLE -->
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Basic Table</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Active</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  @foreach(var country in Model)
-                  {
-                    <tr>
-                        <td>@country.CountryId</td>
-                        <td>@country.Name</td>
-                        <td>@country.IsDeleted</td>
-                    </tr>
-                  }
-                </tbody>
-            </table>
-        </div>
     </div>
-    <!-- END BASIC TABLE -->
 </div>
 
 
+@section scripts{
+
+    <script>
+        var CreateCountry = function () {
+            $(".modal-body").load("/Admin/Countries/Create", function () {
+                $("#myModal").show();
+            });
+        }
+
+        var UpdateCountry = function (id) {
+            $(".modal-body").load("/Admin/Countries/Edit/"+id, function () {
+                $("#myModal").show();
+            });
+        }
+
+        var RemoveCountry = function (id) {
+            $(".modal-body").load("/Admin/Countries/Delete/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+    </script>
+
+    }

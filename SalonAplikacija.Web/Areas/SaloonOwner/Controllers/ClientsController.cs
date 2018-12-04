@@ -23,12 +23,16 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         private readonly Context _context;
         private readonly IMapper _mapper;
         private readonly IAjaxFlashMessage _ajaxFlashMessage;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ClientsController(Context context, IMapper mapper,IAjaxFlashMessage ajaxFlashMessage)
+
+        public ClientsController(Context context, IMapper mapper,IAjaxFlashMessage ajaxFlashMessage, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
             _ajaxFlashMessage = ajaxFlashMessage;
+            _userManager = userManager;
+
         }
 
         [HttpGet]
@@ -201,6 +205,9 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             {
                 Client client = new Client();
                 client.CopyObject(model);
+                var userId = _userManager.GetUserId(HttpContext.User);
+
+                client.UserId = userId;
 
                 _context.Clients.Add(client);
                 _context.SaveChanges();
@@ -238,6 +245,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                                                      IsDeleted = x.IsDeleted,
                                                      Countries = new SelectList(GetCountries(), "CountryId", "Name", x.CountryId),
                                                      ClientTypes = new SelectList(GetClientTypes(), "ClientTypeId", "Name", x.ClientTypeId)
+                                                     
                                                  }).FirstOrDefault();
 
             if (Convert.ToInt32(fromProfileUpdate)==1)
@@ -256,6 +264,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             model.Countries = new SelectList(GetCountries(), "CountryId", "Name");
             model.ClientTypes = new SelectList(GetClientTypes(), "ClientTypeId", "Name");
+
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = 400;
@@ -269,10 +278,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 
             try
             {
+
                 Client client = new Client();
 
                 client.CopyObject(model);
-
                 _context.Clients.Update(client);
 
                 _context.SaveChanges();

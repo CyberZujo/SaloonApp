@@ -1,0 +1,29 @@
+﻿@model List<Country>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<table id="dataTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Option</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody id="clientsData">
+        @foreach (var country in Model)
+        {
+            <tr>
+                <td>@country.Name</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateService(@country.CountryId)">
+                        Edit
+                    </button>
+                </td>
+                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveService(@country.CountryId)">Remove</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
