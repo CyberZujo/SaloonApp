@@ -20,8 +20,6 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //test
-            //aj on dizi
             TempData["errorMessage"] = String.Empty;
             var clientType = _context.ClientType.ToListAsync();
             if (clientType == null)
@@ -30,14 +28,25 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
             }
             return View(await clientType);
         }
+        public IActionResult LoadDataTable()
+        {
+            TempData["errorMessage"] = String.Empty;
+            //var clientType = _context.ClientType.ToListAsync();
+            //if (clientType == null)
+            //{
+            //    return NotFound();
+            //}
+            var clientType = _context.ClientType.Any() ? _context.ClientType.ToList() : null;
+            return PartialView("_IndexPartial",clientType);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //???
+            ClientType cType = new ClientType();
             TempData["errorMessage"] = String.Empty;
-            //nisi nigdje ni stavio ona polja za poruke, nemas spanova ili nesto drugo da se ispise poruka
-            return View();
+           
+            return PartialView("_Create",cType);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,17 +54,18 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView("_Create",model);
             }
             ClientType clientType = new ClientType();
             if (clientType == null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView("_IndexPArtial",clientType);
             }
 
             clientType.Name = model.Name;
             clientType.Description = model.Description;
             clientType.Discount = model.Discount;
+            clientType.IsDeleted = false;
             var item = _context.ClientType.Where(c => c.Name == model.Name).Count();
             if (item > 0)
             {
@@ -64,7 +74,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
             }
             _context.ClientType.Add(clientType);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return PartialView("_Create",clientType);
         }
 
         [HttpGet]
@@ -108,52 +118,64 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(clientType);
+            return PartialView("_Edit",clientType);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int? id, ClientType model)
+        public IActionResult Edit(ClientType model)
         {
 
-            ClientType clientType = new ClientType();
-            if (model == null)
+            if (!ModelState.IsValid)
             {
-                if (model.ClientTypeId != 0)
-                {
-                    return RedirectToAction("Edit", new { Id = model.ClientTypeId });
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+                Response.StatusCode = 400;
+                return PartialView("_Edit", model);
             }
 
-            clientType = _context.ClientType.Where(c => c.ClientTypeId == id).FirstOrDefault();
-            clientType.Name = model.Name;
-            clientType.Description = model.Description;
-            clientType.Discount = model.Discount;
+            try
+            {
+                ClientType cType = _context.ClientType.Where(x => x.ClientTypeId == model.ClientTypeId).FirstOrDefault();
 
-            _context.SaveChanges();
+                cType.Name = model.Name;
+                cType.Description = model.Description;
+                cType.Discount = model.Discount;
+                _context.ClientType.Update(cType);
+                _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+                return PartialView("_Edit", model);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+          
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == 0)
-            {
-                return NotFound();
-            }
-            var clientType = _context.ClientType.Where(c => c.ClientTypeId == id).FirstOrDefault();
+            ClientType cType = _context.ClientType.Where(x => x.ClientTypeId == id).FirstOrDefault();
+
+            if (cType == null)
+                return BadRequest("Country could not be found");
+
+            return PartialView("_Delete", cType);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(ClientType clientType)
+        {
             if (clientType == null)
-            {
-                return NotFound();
-            }
-            _context.ClientType.Remove(clientType);
+                return NotFound("Resource not found");
+
+            var c = _context.ClientType.Where(x => x.ClientTypeId == clientType.ClientTypeId).FirstOrDefault();
+
+         
+
+            _context.ClientType.Remove(c);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+
+            return PartialView("_Delete", clientType);
         }
     }
 }

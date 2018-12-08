@@ -1,0 +1,29 @@
+﻿@model IEnumerable<City>
+
+<table id="dataTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Postal code</th>
+            <th>Options</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody id="clientsData">
+        @foreach (var city in Model)
+        {
+            <tr>
+                <td>@city.Name</td>
+                <td>@city.Country.Name</td>
+                <td>@city.PostalCode</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateCity(@city.CityId)">
+                        Edit
+                    </button>
+                </td>
+                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveCity(@city.CityId)">Remove</button></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -5,45 +5,73 @@
 }
 
 
-
-<div class="col-md-10">
-    <a asp-action="Create" class="btn btn-primary">New type</a>
-    <br />
-    <!-- BASIC TABLE -->
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Client type</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Discount</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var clientType in Model)
-                    {
+<div class="row" id="dataDiv">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" id="btnCreate" data-toggle="modal" data-target="#myModal" onclick="CreateClientType()">
+                            <span>Create</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" id="dataBody">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Discount</th>
+                            <th>Option</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsData">
+                        @foreach (var clientType in Model)
+                        {
                         <tr>
                             <td>@clientType.Name</td>
                             <td>@clientType.Description</td>
                             <td>@clientType.Discount</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@clientType.ClientTypeId" class="btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@clientType.ClientTypeId" class="btn btn-success">Details</a>
-                                <a asp-action="Delete" asp-route-id="@clientType.ClientTypeId" class="btn btn-danger">Delete</a>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateClientType(@clientType.ClientTypeId)">
+                                    Edit
+                                </button>
                             </td>
+                            <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveClientType(@clientType.ClientTypeId)">Remove</button></td>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
-    <!-- END BASIC TABLE -->
 </div>
 
+
+@section scripts{
+
+    <script>
+        var CreateClientType = function () {
+            $(".modal-body").load("/Admin/ClientType/Create", function () {
+                $("#myModal").show();
+            });
+        }
+
+        var UpdateClientType = function (id) {
+            $(".modal-body").load("/Admin/ClientType/Edit/"+id, function () {
+                $("#myModal").show();
+            });
+        }
+
+        var RemoveClientType = function (id) {
+            $(".modal-body").load("/Admin/ClientType/Delete/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+    </script>
+
+}

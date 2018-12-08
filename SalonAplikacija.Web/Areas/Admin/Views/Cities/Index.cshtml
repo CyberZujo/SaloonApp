@@ -1,0 +1,71 @@
+﻿@model List<SalonAplikacija.Data.Models.City>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
+}
+
+<div class="row" id="dataDiv">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" id="btnCreate" data-toggle="modal" data-target="#myModal" onclick="CreateCity()">
+                            <span>Create  </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" id="dataBody">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Postal code</th>
+                            <th>Options</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsData">
+                        @foreach (var city in Model)
+                        {
+                            <tr>
+                                <td>@city.Name</td>
+                                <td>@city.Country.Name</td>
+                                <td>@city.PostalCode</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateCity(@city.CountryId)">
+                                        Edit
+                                    </button>
+                                </td>
+                                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveCity(@city.CountryId)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var CreateCity = function () {
+            $(".modal-body").load("/Admin/Cities/Create", function () {
+                $("#myModal").show();
+            });
+        }
+        var UpdateCity = function (id) {
+            $(".modal-body").load("/Admin/Cities/Edit/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+
+        var RemoveCity = function (id) {
+            $(".modal-body").load("/Admin/Cities/Delete/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+    </script>
+}

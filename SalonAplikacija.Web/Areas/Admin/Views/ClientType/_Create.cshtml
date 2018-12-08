@@ -1,0 +1,54 @@
+﻿@model ClientType
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="form-container">
+    <form id="frmCreateClientType">
+        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Description" class="form-control" placeholder="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Discount" class="form-control" placeholder="Discount" />
+            <span asp-validation-for="Discount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-sm btn-primary" id="btnCreateClientType" data-save="modal">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+
+    $("#btnCreateClientType").click(function (event) {
+        event.preventDefault();
+
+        var actionUrl = "/Admin/ClientType/Create";
+        var formData = $("#frmCreateClientType").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: formData,
+            success: function () {
+                $("#dataBody").load("/Admin/ClientType/LoadDataTable");
+            },
+            error: function (data) {
+                $(".form-container").html(data.responseText);
+
+            }
+        });
+    });
+
+</script>

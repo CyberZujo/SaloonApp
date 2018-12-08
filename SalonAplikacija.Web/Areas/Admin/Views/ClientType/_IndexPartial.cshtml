@@ -1,0 +1,29 @@
+﻿@model List<ClientType>
+
+<table id="dataTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Discount</th>
+            <th>Option</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody id="clientsData">
+        @foreach (var clientType in Model)
+        {
+        <tr>
+            <td>@clientType.Name</td>
+            <td>@clientType.Description</td>
+            <td>@clientType.Discount</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateClientType(@clientType.ClientTypeId)">
+                    Edit
+                </button>
+            </td>
+            <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveClientType(@clientType.ClientTypeId)">Remove</button></td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,58 @@
+﻿@model SalonAplikacija.Web.Areas.Admin.ViewModels.CitiesVM
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="form-container">
+    <form id="frmEditCity">
+        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+
+        <input asp-for="CityId" value="@Model.CityId" type="hidden" />
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("CountryId", Model.Country, new { @class = "form-control" })
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="PostalCode" class="form-control" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-sm btn-primary" id="btnEditCity" data-save="modal">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+
+    $("#btnEditCity").click(function (event) {
+        event.preventDefault();
+
+        var actionUrl = "/Admin/Cities/Edit";
+        var formData = $("#frmEditCity").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: formData,
+            success: function () {
+                console.log('success');
+                $("#dataBody").load("/Admin/Cities/LoadDataTable");
+            },
+            error: function (data) {
+                $(".form-container").html(data.responseText);
+
+            }
+        });
+    });
+
+</script>

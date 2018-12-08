@@ -1,0 +1,47 @@
+﻿@model SalonAplikacija.Web.Areas.Admin.ViewModels.CitiesVM
+<div class="form-container">
+    <form id="frmCreateCity">
+        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+             @Html.DropDownList("CountryId",Model.Country, new { @class = "form-control" })
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="PostalCode" class="form-control" placeholder="Postal Code" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-sm btn-primary" id="btnCreateCity" data-save="modal">Save</button>
+        </div>
+    </form>
+</div>
+<script>
+
+
+    $("#btnCreateCity").click(function (event) {
+        event.preventDefault();
+
+        var actionUrl = "/Admin/Cities/Create";
+        var formData = $("#frmCreateCity").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: formData,
+            success: function () {
+                $("#dataBody").load("/Admin/Cities/LoadDataTable");
+            },
+            error: function (data) {
+                $(".form-container").html(data.responseText);
+
+            }
+        });
+    });
+
+</script>
