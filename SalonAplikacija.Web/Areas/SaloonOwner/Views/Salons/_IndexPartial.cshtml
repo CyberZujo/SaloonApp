@@ -1,0 +1,40 @@
+﻿@model List<Salon>
+<table id="dataTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Opening time</th>
+            <th>Closing time</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Options</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody id="clientsData">
+        @foreach (var salon in Model)
+        {
+            <tr>
+                <td>@salon.Name</td>
+                <td>@salon.Country.Name</td>
+                <td>@salon.City.Name</td>
+                <td>@salon.OpeningTime</td>
+                <td>@salon.ClosingTime</td>
+                <td>@salon.Email</td>
+                <td>@salon.Phone</td>
+                <td>@salon.Mobile</td>
+                <td>@salon.Address</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateSalon(@salon.SaloonId)">
+                        Edit
+                    </button>
+                </td>
+                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveSalon(@salon.SaloonId)">Remove</button></td>
+            </tr>
+        }
+    </tbody>
+</table>

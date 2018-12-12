@@ -16,7 +16,7 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Salons
         public Data.Models.ApplicationUser AspNetUser { get; set; }
 
         public int CityId { get; set; }
-        public List<SelectListItem> City { get; set; }
+        public IEnumerable<SelectListItem> City { get; set; }
 
         public int CountryId { get; set; }
         public IEnumerable<SelectListItem> Country { get; set; }

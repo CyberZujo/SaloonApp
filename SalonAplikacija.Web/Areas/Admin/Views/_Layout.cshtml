@@ -116,7 +116,17 @@
                         </li>
                         <li><a asp-controller="Services" asp-action="Index" class=""><i class="lnr lnr-code"></i> <span>Services</span></a></li>
                         <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Client types</span></a></li>
-                        <li><a asp-controller="Salons" asp-action="Index" class=""><i class="lnr lnr-alarm"></i>  <span>Saloon settings</span></a></li>
+                        <li><<a asp-area="Admin" asp-controller="Admin" asp-action="ListOfSaloons"><i class="fas fa-home"></i><span>Saloons</span></a></li>
+                        @*<li>
+                            <a href="#subPages" id="subAppointments" data-target="#subPages3" data-toggle="collapse" class="collapsed"><i class="fas fa-cogs"></i><span>Saloon settings</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <div id="subPages3" class="collapse">
+                                <ul class="nav">
+                                    <li><a asp-controller="Salons" asp-action="Index" class=""><i class="lnr lnr-alarm"></i>  <span>Saloon settings</span></a></li>
+                                    <li><a asp-area="Admin" asp-controller="Admin" asp-action="ListOfSaloons">List of saloons</a></li>
+
+                                </ul>
+                            </div>
+                        </li>*@
                     </ul>
                 </nav>
             </div>

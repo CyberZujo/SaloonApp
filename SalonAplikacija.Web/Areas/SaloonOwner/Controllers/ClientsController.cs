@@ -14,7 +14,6 @@ using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Client;
 using SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Services;
 using SalonAplikacija.Web.Helpers.AjaxMessages;
 using SalonAplikacija.Web.Helpers.Utils;
-using Vereyon.Web;
 namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
 {
     [Area("SaloonOwner")]

@@ -23,13 +23,11 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public List<SelectListItem> GetAllCountrys()
+        public IEnumerable<Country> GetAllCountrys()
         {
-            return _context.Countries.Select(c => new SelectListItem
-            {
-                Value = c.CountryId.ToString(),
-                Text = c.Name
-            }).ToList();
+            return _context.Countries.Any() ? _context.Countries
+                                                      .Where(x => x.IsDeleted == false)
+                                                      .ToList() : new List<Country>();
         }
         public List<SelectListItem> GetAllCitiesByCountryId(int countryId)
         {
@@ -48,6 +46,13 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                 return NotFound();
             }
             return View(await salons);
+        }
+
+        public IActionResult LoadDataTable()
+        {
+            var salons = _context.Salons.Include(s => s.Country).Include(s => s.City).Include(s => s.ApplicationUser).Any() ? _context.Salons.Include(s => s.Country).Include(s => s.City).Include(s => s.ApplicationUser).ToList() : null;
+           
+            return PartialView("_IndexPartial",salons);
         }
 
         [HttpGet]
@@ -70,12 +75,16 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         {
             SalonsVM salon = new SalonsVM()
             {
-                Country = new SelectList(_context.Countries.ToList(), "CountryId", "Name"),
-               
-            };
-            return View(salon);
-        }
+                Country = new SelectList(GetAllCountrys(), "CountryId", "Name")
 
+            };
+            return PartialView("_Create",salon);
+        }
+        public JsonResult GetCityId(int CityId)
+        {
+            var cityModel = _context.Cities.Where(x => x.CityId == CityId).FirstOrDefault();
+            return Json(cityModel);
+        }
         public JsonResult GetCities(int CountryId)
         {
             var cities = new List<City>();
@@ -99,15 +108,20 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult>Create(SalonsVM model)
         {
+           
+            model.Country = new SelectList(GetAllCountrys(), "CountryId", "Name");
+            model.City = new SelectList(GetAllCitiesByCountryId(model.CountryId), "CityId", "Name");
+
+
             if(!ModelState.IsValid)
             {
                 var error = ViewData.ModelState.Values.ToList();
-                return View(model);
+                return PartialView("_Create",model);
             }
             Salon salon = new Salon();
             if(model==null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView("_Create",salon);
             }
             var user =await _userManager.GetUserAsync(HttpContext.User);
             salon.Name = model.Name;
@@ -125,18 +139,18 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             _context.Salons.Add(salon);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return PartialView("_Create", model);
         }
 
         [HttpGet]
-        public IActionResult Edit(int?id)
+        public IActionResult Edit(int? id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
             var countries = new SelectList(_context.Countries.ToList(), "CountryId", "Name");
-            var user = _userManager.GetUserAsync(HttpContext.User);
+            var user = _userManager.GetUserAsync(HttpContext.User).Result;
             var salon = _context.Salons.Where(s => s.SaloonId == id).Select(s => new SalonsVM
             {
                 SaloonId = s.SaloonId,
@@ -150,18 +164,21 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
                 Mobile = s.Mobile,
                 ApplicationUserId = user.Id.ToString(),
                 Email = s.Email,
-                Country=countries
-
+                Country = countries
             }).Single();
-            
-            return View(salon);
+
+            salon.City = new SelectList(GetAllCitiesByCountryId(salon.CountryId), "CityId", "Name");
+
+            return PartialView("Edit",salon);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int? id,SalonsVM model)
+        public IActionResult Edit(SalonsVM model)
         {
-            var user = _userManager.GetUserAsync(HttpContext.User);
-            if (id==0)
+            model.Country = new SelectList(GetAllCountrys(), "CountryId", "Name");
+            model.City = new SelectList(GetAllCitiesByCountryId(model.CountryId), "CityId", "Name");
+            var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            if (model.SaloonId==0)
             {
                 return NotFound();
             }
@@ -169,15 +186,14 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             {
                 if (model.SaloonId != 0)
                 {
-                    return RedirectToAction("Edit", new { Id = model.SaloonId });
+                    return PartialView("Edit", new { Id = model.SaloonId });
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    return PartialView("_IndexPartial");
                 }
             }
-            Salon salon = new Salon();
-            salon = _context.Salons.Where(s => s.SaloonId == id).FirstOrDefault();
+            var salon = _context.Salons.Where(s => s.SaloonId == model.SaloonId).FirstOrDefault();
             salon.Name = model.Name;
             salon.CountryId = model.CountryId;
             salon.CityId = model.CityId;
@@ -189,7 +205,10 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             salon.Website = model.Website;
             salon.ApplicationUserId = user.Id.ToString();
 
-            return View(salon);
+            _context.Salons.Update(salon);
+            _context.SaveChanges();
+
+            return PartialView("Edit", model);
         }
         [HttpGet]
         public IActionResult Delete(int? id)
@@ -198,14 +217,34 @@ namespace SalonAplikacija.Web.Areas.SaloonOwner.Controllers
             {
                 return NotFound();
             }
-            var salon = _context.Salons.Where(s => s.SaloonId == id).FirstOrDefault();
+            var salon = _context.Salons.Where(s => s.SaloonId == id).Select(s => new SalonDeleteVM
+            {
+               SalonId = s.SaloonId,
+                Name = s.Name
+            }).FirstOrDefault();
+
             if(salon==null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView("_Delete",salon);
             }
-            _context.Salons.Remove(salon);
+         
+            return PartialView("_Delete",salon);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(SalonDeleteVM model)
+        {
+            if (model == null)
+                return NotFound("Resource not found");
+            var salons = _context.Salons.Where(s => s.SaloonId == model.SalonId).FirstOrDefault();
+            if(salons==null)
+            {
+                return BadRequest();
+            }
+            _context.Salons.Remove(salons);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return PartialView("_Delete", model);
         }
     }
 }

@@ -95,17 +95,18 @@
                     <ul class="nav">
                         <li><a asp-controller="Home" asp-action="Index"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                         <li>
-                            <a href="#subPages" id="subClients" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Clients</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" id="subClients" data-toggle="collapse" class="collapsed"><i class="fas fa-users"></i><span>Clients</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse">
                                 <ul class="nav">
                                     <li><a href="/SaloonOwner/Clients" class="">All</a></li>
                                     <li><a href="page-profile.html" class="">Active clients</a></li>
                                     <li><a href="page-login.html" class="">Past clients</a></li>
+                                    <li><a href="page-login.html" class="">Client type</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a href="#subPages" id="subAppointments" data-target="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Appointments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subPages" id="subAppointments" data-target="#subPages2" data-toggle="collapse" class="collapsed"><i class="far fa-calendar-alt"></i><span>Appointments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages2" class="collapse">
                                 <ul class="nav">
                                     <li><a href="page-profile.html" class="">All</a></li>
@@ -114,8 +115,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a asp-controller="Services" asp-action="Index" class=""><i class="lnr lnr-code"></i> <span>Services</span></a></li>
-                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Client types</span></a></li>
+                        <li><a asp-controller="Services" asp-action="Index" class=""><i class="fas fa-cut"></i><span>Services</span></a></li>
                         <li><a asp-controller="Salons" asp-action="Index" class=""><i class="lnr lnr-alarm"></i>  <span>Saloon settings</span></a></li>
                     </ul>
                 </nav>

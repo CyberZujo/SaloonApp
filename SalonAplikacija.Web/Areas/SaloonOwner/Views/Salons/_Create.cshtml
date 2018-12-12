@@ -1,15 +1,8 @@
-﻿@model SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.Salons.SalonsVM
-@{
-    ViewData["Title"] = "Edit";
-    Layout = null;
-}
-
+﻿@model SalonsVM
 <div class="form-container">
-    <form id="frmUpdateSalon">
+    <form id="frmCreateSaloons">
         <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
         @Html.AntiForgeryToken()
-
-        <input asp-for="SaloonId" value="@Model.SaloonId" type="hidden" />
 
         <div class="form-group">
             <input asp-for="Name" class="form-control" placeholder="Name" />
@@ -48,25 +41,18 @@
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-sm btn-primary" id="btnEditSalon" data-save="modal">Save</button>
+            <button type="button" class="btn btn-sm btn-primary" id="btnCreateSaloon" data-save="modal">Save</button>
         </div>
     </form>
 </div>
 
     <script>
-
-        $.get("/SaloonOwner/Salons/GetCityId", { CityId: @Model.CityId},
-            function (data) {
-                $("#CityId option:selected").remove();
-                $("#CityId").append("<option value='" + data.cityId + "'>" + data.name + "</option>");
-            });
-
-
         $(document).ready(function () {
 
             $("#CountryId").change(function () {
                 $.get("/SaloonOwner/Salons/GetCities", { CountryId: $(this).val() },
                     function (data) {
+                        $("#CityId").empty();
                         $.each(data, function (key, value) {
 
                             console.log(data)
@@ -76,11 +62,13 @@
             });
         });
 
-        $("#btnEditSalon").click(function (event) {
+
+
+        $("#btnCreateSaloon").click(function (event) {
             event.preventDefault();
-            console.log("hit");
-            var actionUrl = "/SaloonOwner/Salons/Edit";
-            var formData = $("#frmUpdateSalon").serialize();
+
+            var actionUrl = "/SaloonOwner/Salons/Create";
+            var formData = $("#frmCreateSaloons").serialize();
 
             $.ajax({
                 type: "POST",
@@ -96,3 +84,5 @@
             });
         });
     </script>
+
+

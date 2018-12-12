@@ -4,58 +4,80 @@
     Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
 }
 
-
-
-<div class="col-md-12">
-    <a asp-action="Create" class="btn btn-primary">New saloon</a>
-    <br />
-    <!-- BASIC TABLE -->
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Saloon Info</h3>
+<div class="row" id="dataDiv">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" id="btnCreate" data-toggle="modal" data-target="#myModal" onclick="CreateSalon()">
+                            <span>Create  </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" id="dataBody">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Opening time</th>
+                            <th>Closing time</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Mobile</th>
+                            <th>Address</th>
+                            <th>Options</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsData">
+                        @foreach (var salon in Model)
+                        {
+                        <tr>
+                            <td>@salon.Name</td>
+                            <td>@salon.Country.Name</td>
+                            <td>@salon.City.Name</td>
+                            <td>@salon.OpeningTime</td>
+                            <td>@salon.ClosingTime</td>
+                            <td>@salon.Email</td>
+                            <td>@salon.Phone</td>
+                            <td>@salon.Mobile</td>
+                            <td>@salon.Address</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="UpdateSalon(@salon.SaloonId)">
+                                    Edit
+                                </button>
+                            </td>
+                            <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" onclick="RemoveSalon(@salon.SaloonId)">Remove</button></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>Opening time</th>
-                        <th>Closing time</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Mobile</th>
-                        <th>Address</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var salon in Model)
-                    {
-                    <tr>
-                        <td>@salon.Name</td>
-                        <td>@salon.Country.Name</td>
-                        <td>@salon.City.Name</td>
-                        <td>@salon.OpeningTime</td>
-                        <td>@salon.ClosingTime</td>
-                        <td>@salon.Email</td>
-                        <td>@salon.Phone</td>
-                        <td>@salon.Mobile</td>
-                        <td>@salon.Address</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@salon.SaloonId" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@salon.SaloonId" class="btn btn-success">Details</a>
-                            <a asp-action="Delete" asp-route-id="@salon.SaloonId" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+
     </div>
-    <!-- END BASIC TABLE -->
 </div>
+@section Scripts{
+    <script>
+        var CreateSalon = function () {
+            $(".modal-body").load("/SaloonOwner/Salons/Create", function () {
+                $("#myModal").show();
+            });
+        }
+        var UpdateSalon = function (id) {
+            $(".modal-body").load("/SaloonOwner/Salons/Edit/" + id, function () {
+                $("#myModal").show();
+            });
+        }
 
+        var RemoveSalon = function (id) {
+            $(".modal-body").load("/SaloonOwner/Salons/Delete/" + id, function () {
+                $("#myModal").show();
+            });
+        }
+    </script>
+}
