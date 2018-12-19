@@ -1,15 +1,10 @@
-﻿@model ClientType
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-
+﻿@model SalonAplikacija.Data.Models.ClientType
 <div class="form-container">
     <form id="frmEditClientType">
         <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
 
         <input asp-for="ClientTypeId" value="@Model.ClientTypeId" type="hidden" />
-        @Html.AntiForgeryToken()
+         @Html.AntiForgeryToken()
 
         <div class="form-group">
             <input asp-for="Name" class="form-control" />
@@ -36,7 +31,7 @@
     $("#btnEditClientType").click(function (event) {
         event.preventDefault();
 
-        var actionUrl = "/Admin/ClientType/Edit";
+        var actionUrl = "/SaloonOwner/ClientTypeOwner/Edit";
         var formData = $("#frmEditClientType").serialize();
 
         $.ajax({
@@ -45,7 +40,7 @@
             data: formData,
             success: function () {
                 console.log('success');
-                $("#dataBody").load("/Admin/ClientType/LoadDataTable");
+                $("#dataBody").load("/SaloonOwner/ClientTypeOwner/LoadDataTable");
             },
             error: function (data) {
                 $(".form-container").html(data.responseText);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalonAplikacija.Data;
 using SalonAplikacija.Data.Models;
+using SalonAplikacija.Web.Areas.Admin.ViewModels;
 
 namespace SalonAplikacija.Web.Areas.Admin.Controllers
 {
@@ -31,11 +32,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
         public IActionResult LoadDataTable()
         {
             TempData["errorMessage"] = String.Empty;
-            //var clientType = _context.ClientType.ToListAsync();
-            //if (clientType == null)
-            //{
-            //    return NotFound();
-            //}
+            
             var clientType = _context.ClientType.Any() ? _context.ClientType.ToList() : null;
             return PartialView("_IndexPartial",clientType);
         }
@@ -43,17 +40,17 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ClientType cType = new ClientType();
-            TempData["errorMessage"] = String.Empty;
+            ClientTypeVM cType = new ClientTypeVM();
            
             return PartialView("_Create",cType);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ClientType model)
+        public async Task<IActionResult> Create(ClientTypeVM model)
         {
             if (!ModelState.IsValid)
             {
+                Response.StatusCode = 400;
                 return PartialView("_Create",model);
             }
             ClientType clientType = new ClientType();
@@ -67,14 +64,17 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
             clientType.Discount = model.Discount;
             clientType.IsDeleted = false;
             var item = _context.ClientType.Where(c => c.Name == model.Name).Count();
-            if (item > 0)
+            model.ErrorMessage = _context.ClientType.Where(x => x.Name == model.Name).FirstOrDefault() != null ? "This client type already exist" : "";
+            
+            if(model.ErrorMessage!=String.Empty)
             {
-                TempData["errorMessage"] = "Same data already exists";
-                return View();
+                Response.StatusCode = 400;
+                return PartialView("_Create", model);
             }
+
             _context.ClientType.Add(clientType);
             await _context.SaveChangesAsync();
-            return PartialView("_Create",clientType);
+            return PartialView("_Create",model);
         }
 
         [HttpGet]
@@ -112,7 +112,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
                 Name = c.Name,
                 Description = c.Description,
                 Discount = c.Discount
-            }).Single();
+            }).FirstOrDefault();
 
             if (clientType == null)
             {
@@ -125,7 +125,6 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ClientType model)
         {
-
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = 400;
@@ -139,6 +138,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
                 cType.Name = model.Name;
                 cType.Description = model.Description;
                 cType.Discount = model.Discount;
+
                 _context.ClientType.Update(cType);
                 _context.SaveChanges();
 
@@ -148,7 +148,7 @@ namespace SalonAplikacija.Web.Areas.Admin.Controllers
             {
                 throw;
             }
-          
+
         }
 
         [HttpGet]

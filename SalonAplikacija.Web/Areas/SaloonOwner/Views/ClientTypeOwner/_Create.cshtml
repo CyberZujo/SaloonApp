@@ -1,8 +1,8 @@
-﻿@model SalonAplikacija.Web.Areas.Admin.ViewModels.ClientTypeVM
-
+﻿@model SalonAplikacija.Web.Areas.SaloonOwner.ViewModels.ClientTypeOwner.ClientTypeOwnerVM
 @{
     //ViewData["Title"] = "Create";
     //Layout = "~/Areas/Admin/Views/_Layout.cshtml";
+    
 }
 
 <div class="form-container">
@@ -44,15 +44,15 @@
     $("#btnCreateClientType").click(function (event) {
         event.preventDefault();
 
-        var actionUrl = "/Admin/ClientType/Create";
+        var actionUrl = "/SaloonOwner/ClientTypeOwner/Create";
         var formData = $("#frmCreateClientType").serialize();
 
         $.ajax({
             type: "POST",
             url: actionUrl,
             data: formData,
-            success: function (data) {
-                $("#dataBody").load("/Admin/ClientType/LoadDataTable");
+            success: function () {
+                $("#dataBody").load("/SaloonOwner/ClientTypeOwner/LoadDataTable");
                 $(".alert").removeClass("hidden");
             },
             error: function (data) {

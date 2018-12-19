@@ -1,0 +1,50 @@
+﻿@model SalonAplikacija.Data.Models.ClientType
+<div class="col-md-12">
+    <h4 class="text-center" style="color:#d9534f">
+        <span class="glyphicon glyphicon-remove-sign">
+        </span> You're about to delete a client type
+    </h4>
+</div>
+<div class="form-container">
+    <form id="frmDeleteClientType">
+        <input asp-for="ClientTypeId" type="hidden" />
+
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" readonly="readonly" />
+        </div>
+        <div class="form-group">
+            <input asp-for="Description" class="form-control" readonly="readonly" />
+        </div>
+        <div class="form-group">
+            <input asp-for="Discount" class="form-control" readonly="readonly" />
+        </div>
+        <div class="form-group">
+            <input type="button" id="btnSubmit" value="Delete" class="btn btn-sm btn-danger" />
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $("#btnSubmit").click(function (event) {
+        event.preventDefault();
+
+        var actionUrl = "/SaloonOwner/ClientTypeOwner/Delete";
+        var formData = $("#frmDeleteClientType").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: formData,
+            success: function (data) {
+
+                $("#dataBody").load("/SaloonOwner/ClientTypeOwner/LoadDataTable");
+            },
+            error: function (data) {
+                $(".form-container").html(data.responseText);
+
+            }
+        });
+
+    });
+</script>
