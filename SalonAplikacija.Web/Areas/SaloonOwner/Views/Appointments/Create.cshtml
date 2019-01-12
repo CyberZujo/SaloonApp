@@ -1,0 +1,76 @@
+﻿@model AppointmentCreateVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/SaloonOwner/Views/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Create an appointment
+                    <button type="button" id="btnCreateClient" data-toggle="modal" data-target="#myModal" onclick="CreateClient()" class="btn btn-success btn-sm">Novi klijent</button>
+            </div>
+                <div class="panel-body">
+                    <form asp-controller="Appointments" asp-action="Create" asp-area="SaloonOwner" method="post">
+                        @Html.ValidationSummary()
+
+                        <div class="form-group">
+                            @Html.DropDownListFor(x => x.ClientId, Model.Clients as SelectList, "Select a client", new { @class = "form-control" })
+                            <span asp-validation-for="ClientId" class="text-danger"></span>
+                        </div>
+
+                       
+                        <div class="form-group">
+                            @Html.DropDownListFor(x => x.ServiceId, Model.Services as SelectList, "Select a service", new { @class = "form-control" })
+                            <span asp-validation-for="ServiceId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="StartTime" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="EndTime" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="Remark" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-sm btn-primary" value="Save" />
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        var CreateClient = function () {
+            $(".modal-body").load("/SaloonOwner/Clients/Create", function () {
+                $("#myModal").show();
+            });
+        }
+
+
+        //refresh clients 
+        $("#ClientId").change(function () {
+            $.get("/SaloonOwner/Appointments/GetClients",
+                function (data) {
+
+                    $("#ClientId").find('option').remove().end();
+                    $("#ClientId").empty();
+
+                    $.each(data, function (key, value) {
+                        $("#ClientId")
+                            .append("<option value='" + value.clientId + "'>" + value.firstName + "</option>");
+                    });
+                });
+        });
+
+    </script>
+}
